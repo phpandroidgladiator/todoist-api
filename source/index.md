@@ -46,7 +46,7 @@ The [source code](https://github.com/Doist/todoist-api) of this API documentatio
 
 ### Python
 
-> You can install the Todoist Python library from the PyPI with:
+> You can install the Todoist Python library from PyPI with:
 
 ```
 $ pip install todoist-python
