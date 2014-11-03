@@ -378,18 +378,12 @@ ok
 
 ```python
 >>> import todoist
->>> api = todoist.TodoistAPI()
->>> api.ping('0123456789abcdef0123456789abcdef01234567')
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> api.ping()
 'ok'
 ```
 
 Test user's login token.
-
-### Required parameters
-
-Parameter | Description
---------- | -----------
-token | User's login token.
 
 ### Error returns
 
@@ -464,6 +458,132 @@ start_day | First day of week. `1` for Monday, `7` for Sunday.
 next_week | When postponing what day should we choose? `1` for Monday, `7` for Sunday.
 start_page | Can be one of following values: `_blank` to show blank page, `_info_page` to show info page `_project_<PROJECT_ID>` where `<PROJECT_ID>` is the id of the project to show, `<ANY_QUERY>` to query after anything (for example `tod,tom,!!1`).
 default_reminder | Can be one of the following values: `email` to send reminders by email, `mobile` to send reminders to mobile devices via SMS, `push` to send reminders to smart devices using push notifications (one of Android or iOS official client must be installed on the client side to receive these notifications), `no_default` to turn off sending default reminders.
+
+## Get productivity stats
+
+> An example of getting the user's productivity stats:
+
+```shell
+$ curl https://todoist.com/API/getProductivityStats \
+    -d token=0123456789abcdef0123456789abcdef01234567
+{
+  "karma_last_update": 50.0,
+  "karma_trend": "up",
+  "days_items": [
+    { "date": "2014-11-03",
+      "items": [],
+      "total_completed": 0 },
+  ],
+  "completed_count": 0,
+  "karma_update_reasons": [
+    { "positive_karma_reasons": [4],
+      "new_karma": 50.0,
+      "negative_karma": 0.0,
+      "positive_karma": 50.0,
+      "negative_karma_reasons": [],
+      "time": "Mon 20 Oct 2014 12:06:52"}
+  ],
+  "karma": 50.0,
+  "week_items": [
+    { "date": "2014-11-03\/2014-11-09",
+      "items": [],
+      "total_completed": 0 },
+  ],
+  "project_colors": {},
+  "karma_graph": "https:\/\/todoist.com\/chart?cht=lc&chs=255x70&chd=s:A9&chco=dd4b39&chf=bg,s,ffffff&chxt=x,y&chxl=0:%7cMo%2C%2020%7c%7c1:%7c0%7c50&chxs=0,999999%7c1,999999",
+  "goals": {
+    "karma_disabled": 0,
+    "user_id": 4,
+    "max_weekly_streak": { 
+      "count": 0,
+      "start": "",
+      "end": ""
+    },
+    "ignore_days": [6, 7],
+    "vacation_mode": 0,
+    "current_weekly_streak": {
+      "count": 0,
+      "start": "",
+      "end": ""
+    },
+    "current_daily_streak": {
+      "count": 0,
+      "start": "",
+      "end": ""
+    },
+    "weekly_goal": 25,
+    "max_daily_streak": {
+      "count": 0,
+      "start": "",
+      "end": ""
+    },
+    "daily_goal": 5
+  }
+}
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> api.get_productivity_stats()
+{
+  'karma_last_update': 50.0,
+  'karma_trend': 'up',
+  'days_items': [
+    { 'date': '2014-11-03',
+      'items': [],
+      'total_completed': 0}
+  ],
+  'completed_count': 0,
+  'karma_update_reasons': [
+    { 'positive_karma_reasons': [4],
+      'new_karma': 50.0,
+      'negative_karma': 0.0,
+      'positive_karma': 50.0,
+      'negative_karma_reasons': [],
+      'time': 'Mon 20 Oct 2014 12:06:52' }
+  ],
+  'karma': 50.0,
+  'week_items': [
+    { 'date': '2014-11-03/2014-11-09',
+      'items': [],
+      'total_completed': 0 },
+  ],
+  'project_colors': {},
+  'karma_graph': 'https://todoist.com/chart?cht=lc&chs=255x70&chd=s:A9&chco=dd4b39&chf=bg,s,ffffff&chxt=x,y&chxl=0:%7cMo%2C%2020%7c%7c1:%7c0%7c50&chxs=0,999999%7c1,999999',
+  'goals': {
+    'karma_disabled': 0,
+    'user_id': 4,
+    'max_weekly_streak': {
+      'count': 0,
+      'start': '',
+      'end': ''
+    },
+    'ignore_days': [6, 7],
+    'vacation_mode': 0,
+    'current_weekly_streak': {
+      'count': 0,
+      'start': '',
+      'end': ''
+    },
+    'current_daily_streak': {
+      'count': 0,
+      'start': '',
+      'end': ''
+    },
+    'weekly_goal': 25,
+    'max_daily_streak': {
+      'count': 0,
+      'start': '',
+      'end': ''
+    },
+    'daily_goal': 5
+  }
+}
+
+```
+
+Get the user's productivity stats.
 
 # Data
 
