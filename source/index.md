@@ -385,6 +385,12 @@ ok
 
 Test user's login token.
 
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | The user's token (received on login).
+
 ### Error returns
 
 Error | Description
@@ -458,6 +464,38 @@ start_day | First day of week. `1` for Monday, `7` for Sunday.
 next_week | When postponing what day should we choose? `1` for Monday, `7` for Sunday.
 start_page | Can be one of following values: `_blank` to show blank page, `_info_page` to show info page `_project_<PROJECT_ID>` where `<PROJECT_ID>` is the id of the project to show, `<ANY_QUERY>` to query after anything (for example `tod,tom,!!1`).
 default_reminder | Can be one of the following values: `email` to send reminders by email, `mobile` to send reminders to mobile devices via SMS, `push` to send reminders to smart devices using push notifications (one of Android or iOS official client must be installed on the client side to receive these notifications), `no_default` to turn off sending default reminders.
+
+## Get redirect link
+
+> An example of getting the user's absolute URL to redirect or to open in a browser:
+
+```shell
+$ curl https://todoist.com/API/getRedirectLink \
+    -d token=0123456789abcdef0123456789abcdef01234567
+{"link": "https:\/\/local.todoist.com\/secureRedirect?path=%2Fapp&token=abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> api.get_redirect_link()
+{'link': 'https:\/\/local.todoist.com\/secureRedirect?path=%2Fapp&token=abcdefghijklmnopqrstuvwxyz.0123456789.ABCDEFGHIJKLMNOPQRSTUVWXYZ'}
+```
+
+Get the user's absolute URL to redirect or to open in a browser. For the first time the link logs in the user automatically and performs a redirect to a given page, but once used, the link keeps working as a plain redirect. The link keeps working as a login link for as long as one week after it's been issued.
+
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | The user's token (received on login).
+
+### Optional parameters
+
+Parameter | Description
+--------- | -----------
+path | The path to redirect user's browser (default is "/app").
+hash | The hash part of the path to redirect user's browser.
 
 ## Get productivity stats
 
@@ -584,6 +622,157 @@ $ curl https://todoist.com/API/getProductivityStats \
 ```
 
 Get the user's productivity stats.
+
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | The user's token (received on login).
+
+## Update notification settings
+
+> An example of updating the user's notification settings
+
+```shell
+$ curl https://todoist.com/API/updateNotificationSetting \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
+    -d notification_type=item_completed \
+    -d service=email \
+    -d dont_notify=1
+{
+  "user_left_project": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "biz_trial_will_end": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "biz_trial_enter_cc": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "item_completed": {
+    "notify_push": true,
+    "notify_email": false
+  },
+  "share_invitation_rejected": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "note_added": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "biz_account_disabled": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "biz_invitation_rejected": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "item_uncompleted": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "item_assigned": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "share_invitation_accepted": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "user_removed_from_project": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "biz_invitation_accepted": {
+    "notify_push": true,
+    "notify_email": true
+  },
+  "biz_payment_failed": {
+    "notify_push": true,
+    "notify_email": true
+  }
+}
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> api.update_notification_setting('item_completed', 'email', 1)
+{
+  'biz_invitation_rejected': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'user_left_project': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'note_added': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'biz_trial_enter_cc': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'item_completed': {
+    'notify_push': True,
+    'notify_email': False
+  },
+  'biz_trial_will_end': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'biz_account_disabled': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'share_invitation_rejected': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'item_uncompleted': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'item_assigned': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'share_invitation_accepted': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'user_removed_from_project': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'biz_invitation_accepted': {
+    'notify_push': True,
+    'notify_email': True
+  },
+  'biz_payment_failed': {
+    'notify_push': True,
+    'notify_email': True
+  }
+}
+```
+
+Update the user's notification settings.
+
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | The user's token (received on login).
+notification_type | The notification type.
+service | The service type, which can be `email` or `push`.
+dont_notify | Should we notify on this service? Can be `1` or `0`.
 
 # Data
 
@@ -1143,95 +1332,95 @@ $ curl https://todoist.com/API/query \
 >>> api.query(['tomorrow', 'p1'])
 [
   {
-    u'data': [
-      { u'assigned_by_uid': 1855589,
-        u'checked': 0,
-        u'children': None,
-        u'collapsed': 0,
-        u'complete_count': 0,
-        u'content': u'Task2',
-        u'date_added': u'Tue 07 Oct 2014 06:11:06 +0000',
-        u'date_string': u'8 Oct',
-        u'day_order': 0,
-        u'due_date': u'Wed 08 Oct 2014 20:59:59 +0000',
-        u'has_notifications': 0,
-        u'id': 35825425,
-        u'in_history': 0,
-        u'indent': 1,
-        u'is_archived': 0,
-        u'is_deleted': 0,
-        u'is_dst': None,
-        u'item_order': 2,
-        u'labels': [],
-        u'mm_offset': 180,
-        u'postpone_count': 0,
-        u'priority': 1,
-        u'project_id': 128501470,
-        u'responsible_uid': None,
-        u'seq_no': 2306453653L,
-        u'sync_id': None,
-        u'user_id': 1855589 },
-      { u'assigned_by_uid': 1855589,
-        u'checked': 0,
-        u'children': None,
-        u'collapsed': 0,
-        u'complete_count': 0,
-        u'content': u'Task 3',
-        u'date_added': u'Tue 07 Oct 2014 06:20:48 +0000',
-        u'date_string': u'8 Oct',
-        u'day_order': 1,
-        u'due_date': u'Wed 08 Oct 2014 20:59:59 +0000',
-        u'has_notifications': 0,
-        u'id': 35826737,
-        u'in_history': 0,
-        u'indent': 1,
-        u'is_archived': 0,
-        u'is_deleted': 0,
-        u'is_dst': None,
-        u'item_order': 3,
-        u'labels': [],
-        u'mm_offset': 180,
-        u'postpone_count': 0,
-        u'priority': 1,
-        u'project_id': 128501470,
-        u'responsible_uid': None,
-        u'seq_no': 2306541514L,
-        u'sync_id': None,
-        u'user_id': 1855589 }
+    'data': [
+      { 'assigned_by_uid': 1855589,
+        'checked': 0,
+        'children': None,
+        'collapsed': 0,
+        'complete_count': 0,
+        'content': 'Task2',
+        'date_added': 'Tue 07 Oct 2014 06:11:06 +0000',
+        'date_string': '8 Oct',
+        'day_order': 0,
+        'due_date': 'Wed 08 Oct 2014 20:59:59 +0000',
+        'has_notifications': 0,
+        'id': 35825425,
+        'in_history': 0,
+        'indent': 1,
+        'is_archived': 0,
+        'is_deleted': 0,
+        'is_dst': None,
+        'item_order': 2,
+        'labels': [],
+        'mm_offset': 180,
+        'postpone_count': 0,
+        'priority': 1,
+        'project_id': 128501470,
+        'responsible_uid': None,
+        'seq_no': 2306453653L,
+        'sync_id': None,
+        'user_id': 1855589 },
+      { 'assigned_by_uid': 1855589,
+        'checked': 0,
+        'children': None,
+        'collapsed': 0,
+        'complete_count': 0,
+        'content': 'Task 3',
+        'date_added': 'Tue 07 Oct 2014 06:20:48 +0000',
+        'date_string': '8 Oct',
+        'day_order': 1,
+        'due_date': 'Wed 08 Oct 2014 20:59:59 +0000',
+        'has_notifications': 0,
+        'id': 35826737,
+        'in_history': 0,
+        'indent': 1,
+        'is_archived': 0,
+        'is_deleted': 0,
+        'is_dst': None,
+        'item_order': 3,
+        'labels': [],
+        'mm_offset': 180,
+        'postpone_count': 0,
+        'priority': 1,
+        'project_id': 128501470,
+        'responsible_uid': None,
+        'seq_no': 2306541514L,
+        'sync_id': None,
+        'user_id': 1855589 }
     ],
-    u'query': u'tomorrow',
-    u'type': u'date'
+    'query': 'tomorrow',
+    'type': 'date'
   },
   {
-    u'data': [
-      { u'assigned_by_uid': 1855589,
-        u'checked': 0,
-        u'children': None,
-        u'collapsed': 0,
-        u'complete_count': 1,
-        u'content': u'Task1',
-        u'date_added': u'Fri 26 Sep 2014 11:54:48 +0000',
-        u'date_string': u'',
-        u'due_date': None,
-        u'has_notifications': 0,
-        u'id': 33548400,
-        u'in_history': 0,
-        u'indent': 1,
-        u'is_archived': 0,
-        u'is_deleted': 0,
-        u'is_dst': None,
-        u'item_order': 1,
-        u'labels': [],
-        u'mm_offset': 180,
-        u'postpone_count': 5,
-        u'priority': 4,
-        u'project_id': 128501470,
-        u'responsible_uid': None,
-        u'seq_no': 2306454606L,
-        u'sync_id': None,
-        u'user_id': 1855589}],
-    u'query': u'p1',
-    u'type': u'priority'
+    'data': [
+      { 'assigned_by_uid': 1855589,
+        'checked': 0,
+        'children': None,
+        'collapsed': 0,
+        'complete_count': 1,
+        'content': 'Task1',
+        'date_added': 'Fri 26 Sep 2014 11:54:48 +0000',
+        'date_string': '',
+        'due_date': None,
+        'has_notifications': 0,
+        'id': 33548400,
+        'in_history': 0,
+        'indent': 1,
+        'is_archived': 0,
+        'is_deleted': 0,
+        'is_dst': None,
+        'item_order': 1,
+        'labels': [],
+        'mm_offset': 180,
+        'postpone_count': 5,
+        'priority': 4,
+        'project_id': 128501470,
+        'responsible_uid': None,
+        'seq_no': 2306454606L,
+        'sync_id': None,
+        'user_id': 1855589}],
+    'query': 'p1',
+    'type': 'priority'
   }
 ]
 ```
