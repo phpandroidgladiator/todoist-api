@@ -1497,6 +1497,13 @@ $ curl https://todoist.com/API/uploadFile -X POST \
 ```
 Upload a file suitable to be passed as a `file_attachment` attribute to the `note_add` or `note_update` calls.
 
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | The user's token (received on login).
+file_name | The file name to be uploaded.
+
 ### Base file properties
 
 Attribute | Description
