@@ -425,6 +425,153 @@ $ curl https://todoist.com/API/getTimezones
 
 Returns the timezones Todoist supports.
 
+## Register user
+
+> And example of registering a new user:
+
+
+```shell
+$ curl https://todoist.com/API/register \
+    -d email=me@example.com \
+    -d full_name=Example\ User \
+    -d password=secret
+{
+  "start_day": 7,
+  "start_page": "overdue, 7 days",
+  "date_format": 1,
+  "last_used_ip": "10.20.30.40",
+  "api_token": "0123456789abcdef0123456789abcdef01234567",
+  "karma_trend": "-",
+  "inbox_project": 128501411,
+  "time_format": 1,
+  "image_id": null,
+  "beta": 0,
+  "sort_order": 0,
+  "business_account_id": null,
+  "full_name": "Example User",
+  "mobile_number": null,
+  "shard_id": 2,
+  "timezone": "UTC",
+  "is_premium": false,
+  "mobile_host": null,
+  "id": 1855589,
+  "has_push_reminders": false,
+  "is_dummy": 0,
+  "premium_until": null,
+  "team_inbox": null,
+  "next_week": 1,
+  "token": "0123456789abcdef0123456789abcdef01234567",
+  "tz_offset": ["+00:00", 0, 0, 0],
+  "join_date": "Wed 30 Apr 2014 13:24:38 +0000",
+  "seq_no": 2180270834,
+  "karma": 0.0,
+  "is_biz_admin": false,
+  "default_reminder": null,
+  "email": "me@example.com"}
+}
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI()
+>>> api.register('me@example.com', 'Example User', 'secret')
+{
+  'start_page': 'overdue, 7 days',
+  'join_date': 'Wed 30 Apr 2014 13:24:38 +0000',
+  'last_used_ip': '10.20.30.40',
+  'is_premium': False,
+  'sort_order': 0,
+  'full_name': 'Example User',
+  'api_token': '0123456789abcdef0123456789abcdef01234567',
+  'shard_id': 2,
+  'has_push_reminders': False,
+  'id': 1855589,
+  'team_inbox': None,
+  'next_week': 1,
+  'tz_offset': ['+00:00', 0, 0, 0],
+  'timezone': 'UTC',
+  'email': 'me@example.com',
+  'start_day': 7,
+  'is_dummy': 0,
+  'inbox_project': 128501411,
+  'time_format': 1,
+  'image_id': None,
+  'beta': 0,
+  'premium_until': None,
+  'business_account_id': None,
+  'mobile_number': None,
+  'mobile_host': None,
+  'date_format': 1,
+  'karma_trend': '-',
+  'token': '0123456789abcdef0123456789abcdef01234567',
+  'seq_no': 2180270834,
+  'karma': 0.0,
+  'is_biz_admin': False,
+  'default_reminder': None
+}
+
+```
+
+Register a new user.
+
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+email | User's email.
+full_name | User's full name.
+password | User's password, should be at least 5 characters long.
+
+### Optional parameters
+
+Parameter | Description
+--------- | -----------
+lang | User's language. Can be `de`, `fr`, `ja`, `pl`, `pt_BR`, `zh_CN`, `es`, `hi`, `ko`, `pt`, `ru`, `zh_TW`.
+timezone | User's timezone (check API call `getTimezones`). As default we use the user's IP address to determine the timezone.
+
+Error | Description
+----- | -----------
+ALREADY_REGISTRED | The specified email address is already registered for another user.
+TOO_SHORT_PASSWORD | The password is less than 5 characters long.
+INVALID_EMAIL | The specified email address is invalid.
+INVALID_TIMEZONE | The specified timezone is invalid.
+INVALID_FULL_NAME | The specified full name is invalid.
+UNKNOWN_ERROR | Other undefined error.
+
+## Delete user
+
+> An example of deleting an existing user:
+
+```shell
+$ curl https://todoist.com/API/deleteUser \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
+    -d current_password=secret
+"ok"
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> api.delete_user('secret')
+ok
+```
+
+Delete an existing user.
+
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | User's token.
+current_password | User's current password.
+
+### Optional parameters
+
+Parameter | Description
+--------- | -----------
+reason_for_delete | Reason for deletion (used for feedback).
+in_background | Default is `1`. Set it to `0` if you want the user deleted instantly (and not in a background worker).
+
 ## Update properties
 
 
@@ -2287,7 +2434,7 @@ id | The id of the bel
     "file_type": "text/plain",
     "file_name": "File1.txt",
     "file_size": 1234,
-    "file_url": "https://example.org/File1.txt",
+    "file_url": "https://example.com/File1.txt",
     "upload_state": "completed"
   }
   "posted_uid": 1855589,
@@ -2311,7 +2458,7 @@ id | The id of the bel
     'file_type': 'text/plain',
     'file_name': 'File1.txt',
     'file_size': 1234,
-    'file_url': 'https://example.org/File1.txt',
+    'file_url': 'https://example.com/File1.txt',
     'upload_state': 'completed'
   }
   'uids_to_notify': None
