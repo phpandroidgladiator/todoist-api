@@ -3333,7 +3333,7 @@ id | The id of the filter to view. If the id doesn’t exist, you don’t have a
 todoist://search?query=Test%20%26%20Today
 ```
 
-The following scheme is available to do searching:
+The following scheme is available for searching (Android only):
 
 Scheme | Description
 ------ | -----------
