@@ -13,7 +13,7 @@ todoist://today | Opens the today view.
 todoist://next7days | Opens the next 7 days view.
 todoist://profile | Opens the profile view.
 todoist://inbox | Opens the inbox view.
-todoist://teaminbox | Opens the team inbox view. If the user doesn’t have a business account (access to team inbox), it will show an alert saying that he/she doesn’t have access to the team inbox because doesn’t have a business account and will be redirected automatically to the inbox view.
+todoist://teaminbox | Opens the team inbox view. If the user doesn't have a business account (access to team inbox), it will show an alert saying that he/she doesn't have access to the team inbox because doesn't have a business account and will be redirected automatically to the inbox view.
 todoist://notifications | Opens notifications view.
 
 ## Tasks
@@ -88,7 +88,7 @@ The `todoist://project` scheme accepts the following required value:
 
 Value | Description
 ----  | -----------
-id | The id of the project to view. If the id doesn’t exist, you don’t have access to the project, or the value is empty, an alert will be showed and the user will be redirected to the projects view.
+id | The id of the project to view. If the id doesn't exist, you don’t have access to the project, or the value is empty, an alert will be showed and the user will be redirected to the projects view.
 
 ## Labels
 
@@ -114,7 +114,7 @@ The `todoist://label` scheme accepts the following required value:
 
 Value | Description
 ----  | -----------
-id | The id of the label to view. If the id doesn’t exist, you don’t have access to the label, or the value is empty, an alert will be showed and the user will be redirected to the labels view.
+id | The id of the label to view. If the id doesn't exist, you don’t have access to the label, or the value is empty, an alert will be showed and the user will be redirected to the labels view.
 
 ## Filters
 
@@ -140,7 +140,7 @@ The `todoist://filter` scheme accepts the following required value:
 
 Value | Description
 ----  | -----------
-id | The id of the filter to view. If the id doesn’t exist, you don’t have access to the filter, or the value is empty, an alert will be showed and the user will be redirected to the filters view.
+id | The id of the filter to view. If the id doesn't exist, you don’t have access to the filter, or the value is empty, an alert will be showed and the user will be redirected to the filters view.
 
 
 ## Search
