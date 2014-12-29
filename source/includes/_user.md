@@ -518,9 +518,9 @@ in_background | Default is `1`. Set it to `0` if you want the user deleted insta
 > An example of updating the user's properties:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "user_update", "timestamp": 1411655847093, "args": {"time_format": 0}}]'
+$ curl https://todoist.com/API/updateUser \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
+    -d time_format=0
 ```
 
 ```python
