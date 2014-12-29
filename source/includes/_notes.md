@@ -104,7 +104,7 @@ Add a note.
 
 Argument | Description
 -------- | -----------
-item_id | The id of the item
+item_id | The id of the item.
 content | The content of the note.
 
 ### Optional arguments
@@ -120,7 +120,7 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_update", "timestamp": 1412325418683, "args": {"id": 1234, "content": "UpdatedNote1"}}]'
+    -d items_to_sync='[{"type": "note_update", "timestamp": 1412325418683, "args": {"note_id": 1234, "content": "UpdatedNote1"}}]'
 ```
 
 ```python
@@ -137,7 +137,7 @@ Update a note.
 
 Argument | Description
 -------- | -----------
-id | The id of the note.
+note_id | The id of the note.
 
 ### Optional arguments
 
@@ -153,7 +153,7 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_delete", "timestamp": 1412325418683, "args": {"id": 1234}}]'
+    -d items_to_sync='[{"type": "note_delete", "timestamp": 1412325418683, "args": {"note_id": 1234, "item_id": 33548400}}]'
 ```
 
 ```python
@@ -170,4 +170,5 @@ Delete a note.
 
 Argument | Description
 -------- | -----------
-id | The id of the note.
+note_id | The id of the note.
+item_id | The id of the item.
