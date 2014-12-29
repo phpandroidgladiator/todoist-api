@@ -137,7 +137,7 @@ id | The id of the filter.
 ```shell
 $ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "filter_update_orders", "timestamp": 1412336529401, "args": {"id_order_mapping": {"9":  1], "10": 2]}}}]'
+    -d items_to_sync=[{"type": "filter_update_orders", "timestamp": 1412336529401, "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
 ```
 
 ```python
