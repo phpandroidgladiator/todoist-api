@@ -144,7 +144,7 @@ invitation_id | The invitation to be deleted.
 ```shell
 $ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "take_ownership", "timestamp": 1412588044477, "args": {"id": 128501470}}]'
+    -d items_to_sync='[{"type": "take_ownership", "timestamp": 1412588044477, "args": {"project_id": 128501470}}]'
 ```
 
 ```python
@@ -160,7 +160,7 @@ Take ownership of a shared project.
 
 Argument | Description
 -------- | -----------
-id | The shared project of which to take the ownership.
+project_id | The shared project of which to take the ownership.
 
 ## Accept a business invitation
 
