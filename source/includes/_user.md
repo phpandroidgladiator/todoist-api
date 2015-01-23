@@ -88,12 +88,124 @@ mobile_host | User's mobile host.
 premium_until | When does the user's Premium subscription expire?
 default_reminder | What is the default reminder for the user? Reminders are only possible for Premium users. The default reminder can be one of the following:  `email`, `mobile`, `push`, and `no_default`.
 
-## Login
+## Authorization
+
+> The current API token of a user can be seen through the Todoist web application at:
+
+```
+Settings -> Todoist Settings -> Account -> API token
+```
+
+Each API call requires a valid API token, and there are two ways of obtaining an API token: via OAuth protocol or plain login authorization (which requires the user's email and password).  Using the OAuth2 method is preferred, as the plain login authorization is scheduled for deprecation, and this method will be described thereafter in detail.
+
+External applications could obtain a user authorized API token via the OAuth2 protocol.  Developers need to register their applications before getting started.  A registered Todoist application is assigned a unique Client ID and Client Secret which are needed for the OAuth2 flow.
+
+This procedure is comprised of 3 steps, which will be described below.
+
+### Step 1: The authorization request
+
+> An example of redirecting a user to the authorization URL:
+
+```
+$ curl https://todoist.com/oauth/authorize \
+    -d client_id=0123456789abcdef \
+    -d redirect_uri=https://example.com \
+    -d scope=data:read,data:delete \
+    -d state=secretstring
+```
+
+Redirect users to the authorization URL at the endpoint `https://todoist.com/oauth/authorize`, with the specified request parameters.
+
+Here follow the required parameters:
+
+Name | Description
+---- | -----------
+client_id | The unique Client ID of the Todoist application that was registered.
+scope | A comma separated list of permissions that the users will grant to the application. See below a table with more details about this.
+state | A unique and unguessable string. It is used for protection against cross-site request forgery attacks.
+
+There is also an optional parameter:
+
+Name | Description
+---- | -----------
+redirect_uri | The URL where users will be redirected to, after the authorization.  If left out, the redirect URI configured in the application settings will be used by default.
+
+Here are the scope parameters mentioned before:
+
+Name | Description
+---- | -----------
+task:add | Grants permission to add tasks to the Inbox project (The application cannot read tasks data).  
+data:read | Grants read-only access to application data, including tasks, projects, labels, and filters. 
+data:read_write | Grants read and write access to application data, including tasks, projects, labels, and filters. This scope include `task:add` and `data:read` scopes.
+data:delete | Grants permission to delete application data, including tasks, labels, and filters. 
+project:delete | Grants permission to delete projects.
+
+And here are some common errors that may be encountered:
+
+Error | Description
+----- | -----------
+User Rejected Authorization Request | When the user denies the authorization request, Todoist will redirect the user to the configured redirect URI with `error` paramete: `http://example.com?error=access_denied`.
+Redirect URI Mismatch | The `redirect_uri` parameter must either match or be the subpath of the redirect URI which was configured in application settings. If the requirement is not satisfied, Todoist will redirect the user to the configured redirect URI with `error` parameter: `http://example.com?error=redirect_uri_mismatch`
+Invalid Application Status | When an application exceeds the maximum token limit or when an application is being suspended due to abuse, Todoist will redirect the user to the configured redirect URI with the `error` parameter: `http://example.com?error=invalid_application_status`.
+Invalid Scope | When the `scope` parameter is invalid, Todoist will redirect the user to the configured redirect URI with `error` parameter: `http://example.com?error=invalid_scope`.
+
+### Step 2: The redirection to the application site
+
+When the authorization request is granted, the user will be redirected to the `redirect_uri` specified earlier. The redirect request will come with two query parameters attached: `code` and `state`. 
+
+The `code` parameter contains the authorization code that will be used to exchange for an access token. The `state` parameter should match the `state` parameter that was supplied in the previous step.  If the `state` is unmatched, the request has been compromised by other parties, and the process should be aborted.
+
+### Step 3: The token exchange
+
+> An example of exchanging the token:
+
+```
+$ curl https://todoist.com/oauth/access_token -X POST \
+    -d client_id=0123456789abcdef \
+    -d client_secret=secret \
+    -d code=abcdef \
+    -d redirect_uri=https://example.com
+```
+
+> On success, Todoist returns HTTP 200 with token in JSON object format:
+
+```
+{
+  "access_token": "0123456789abcdef0123456789abcdef01234567", 
+  "token_type": "Bearer"
+}
+```
+
+Once the authorization `code` has been acquired, it can be exchanged it for the access token at the endpoint `POST https://todoist.com/oauth/access_token`.
+
+Here follow the required parameters:
+
+Name | Description
+---- | -----------
+client_id | The unique Client ID of the Todoist application that was registered.
+client_secret | The unique Client Secret of the Todoist application that was registered.
+code | The unique string code which was obtained in the previous step.
+
+There is also an optional parameter:
+
+Name | Description
+---- | -----------
+redirect_uri | The URL that was specified in the first step.  Their values must be identical.
+
+And here are some common errors that may be encountered (all the error response will be in JSON format):
+
+Error | Description
+----- | -----------
+Bad Authorization Code Error | Occurs when the `code` parameter does not match the code that is given in the redirect request: `{"error": "bad_authorization_code"}`
+Incorrect Client Credentials Error | Occurs when the `client_id` or `client_secret` parameters are incorrect: `{"error": "incorrect_application_credentials"}`
+Redirect URI Mismatch Error | Occurs when the `redirect_uri` does not match the redirect URL which was specified in the previous authorization request: `{"error": "redirect_uri_mismatch"}`
+
+## Login with password
 
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/login \
+$ curl https://todoist.com/API/login_plain \
     -d email=me@example.com \
     -d password=secret
 {
@@ -134,7 +246,7 @@ $ curl https://todoist.com/API/login \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI()
->>> api.login('me@example.com', 'secret')
+>>> api.login_plain('me@example.com', 'secret')
 {
   'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
@@ -180,21 +292,12 @@ Parameter | Description
 email | User's email.
 password | User's password.
 
-### Error returns
-
-Error | Description
------ | -----------
-LOGIN_ERROR | Raises when the token is invalid or outdated (Google refuses to accept this token.)
-INTERNAL_ERROR | If server is unable to connect with Google to check the token or if the response from Google is unable to parse. It makes sense to repeat the attempt with same set of options later.
-EMAIL_MISMATCH | The token is valid, but the email accompanied the token in the request mismatches the one returned by Google.
-ACCOUNT_ NOT_CONNECTED_ WITH_GOOGLE | Raises when token is valid and matches the email, but Todoist account is not connected with Google.
-
 ## Login with Google
 
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/loginWithGoogle \
+$ curl https://todoist.com/API/v6/login_oauth \
     -d email=me@example.com \
     -d oauth2_token=01234567-89ab-cdef-0123-456789abcdef
 
@@ -236,7 +339,7 @@ $ curl https://todoist.com/API/loginWithGoogle \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI()
->>> api.login_with_google('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
+>>> api.login_oauth('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
 {
   'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
@@ -273,7 +376,7 @@ $ curl https://todoist.com/API/loginWithGoogle \
 }
 ```
 
-Login user into Todoist with Google account. Can be used instead of normal login to get a token.
+Login user into Todoist with Google account.
 
 ### Implementation notes
 
@@ -297,81 +400,13 @@ full_name | User's full name if user is about to be registered. If not set, a us
 timezone | User's timezone if user is about to be registered. If not set, we guess the timezone from the client's IP address. In case of failure, "UTC" timezone will be set up for a newly created account.
 lang | User's language. Can be `de`, `fr`, `ja`, `pl`, `pt_BR`, `zh_CN`, `es`, `hi`, `ko`, `pt`, `ru`, `zh_TW`
 
-### Error returns
-
-Error | Description
------ | -----------
-LOGIN_ERROR | Raises when the token is invalid or outdated (Google refuses to accept this token.)
-INTERNAL_ERROR | If server is unable to connect with Google to check the token or if the response from Google is unable to parse. It makes sense to repeat the attempt with same set of options later.
-EMAIL_MISMATCH | The token is valid, but the email accompanied the token in the request mismatches the one returned by Google.
-ACCOUNT_ NOT_CONNECTED_ WITH_GOOGLE | Raises when token is valid and matches the email, but Todoist account is not connected with Google.
-
-## Test token
-
-> On success, HTTP 200 OK with text "ok" is returned:
-
-```shell
-$ curl https://todoist.com/API/ping \
-    -d token=0123456789abcdef0123456789abcdef01234567
-ok
-```
-
-```python
->>> import todoist
->>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.ping()
-'ok'
-```
-
-Test user's login token.
-
-### Required parameters
-
-Parameter | Description
---------- | -----------
-token | The user's token (received on login).
-
-### Error returns
-
-Error | Description
------ | -----------
-HTTP 401 | Token not correct!
-
-## Get timezones
-
-> On success, HTTP 200 OK with a JSON object with timezone names is returned:
-
-```shell
-$ curl https://todoist.com/API/getTimezones
-[
-  ["US\/Hawaii", "(GMT-1000) Hawaii"],
-  ["US\/Alaska", "(GMT-0800) Alaska"],
-  ["US\/Pacific", "(GMT-0700) Pacific Time (US & Canada)"],
-  ...
-]
-```
-
-```python
->>> import todoist
->>> api = todoist.TodoistAPI()
->>> api.getTimezones()
-[
-  ['US/Hawaii', '(GMT-1000) Hawaii'],
-  ['US/Alaska', '(GMT-0800) Alaska'],
-  ['US/Pacific', '(GMT-0700) Pacific Time (US & Canada)'],
-  ...
-]
-```
-
-Returns the timezones Todoist supports.
-
 ## Register user
 
 > And example of registering a new user:
 
 
 ```shell
-$ curl https://todoist.com/API/register \
+$ curl https://todoist.com/API/v6/register \
     -d email=me@example.com \
     -d full_name=Example\ User \
     -d password=secret
@@ -467,23 +502,14 @@ password | User's password, should be at least 5 characters long.
 Parameter | Description
 --------- | -----------
 lang | User's language. Can be `de`, `fr`, `ja`, `pl`, `pt_BR`, `zh_CN`, `es`, `hi`, `ko`, `pt`, `ru`, `zh_TW`.
-timezone | User's timezone (check API call `getTimezones`). As default we use the user's IP address to determine the timezone.
-
-Error | Description
------ | -----------
-ALREADY_REGISTRED | The specified email address is already registered for another user.
-TOO_SHORT_PASSWORD | The password is less than 5 characters long.
-INVALID_EMAIL | The specified email address is invalid.
-INVALID_TIMEZONE | The specified timezone is invalid.
-INVALID_FULL_NAME | The specified full name is invalid.
-UNKNOWN_ERROR | Other undefined error.
+timezone | User's timezone. As default we use the user's IP address to determine the timezone.
 
 ## Delete user
 
 > An example of deleting an existing user:
 
 ```shell
-$ curl https://todoist.com/API/deleteUser \
+$ curl https://todoist.com/API/v6/delete_user \
     -d token=0123456789abcdef0123456789abcdef01234567 \
     -d current_password=secret
 "ok"
@@ -518,9 +544,9 @@ in_background | Default is `1`. Set it to `0` if you want the user deleted insta
 > An example of updating the user's properties:
 
 ```shell
-$ curl https://todoist.com/API/updateUser \
-    -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d time_format=0
+$ curl https://todoist.com/API/v6/sync -X POST \
+    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d items_to_sync='[{"type": "user_update", "timestamp": "1411653994.1", "args": {"time_format": 0}}]'
 ```
 
 ```python
@@ -531,12 +557,6 @@ $ curl https://todoist.com/API/updateUser \
 
 Update the details of the user.
 
-### Required parameters
-
-Parameter | Description
---------- | -----------
-token | The user's token (received on login).
-
 ### Optional parameters
 
 Parameter | Description
@@ -544,7 +564,7 @@ Parameter | Description
 email | User's email.
 full_name | User's full name.
 password | User's password, which should be at least 5 characters long.
-timezone | User's timezone (check the `getTimezones` request).
+timezone | User's timezone.
 date_format | How should dates be formatted? If `0` `DD-MM-YYYY` will be used, if `1` `MM-DD-YYYY` will be used.
 time_format | How should times be formatted? If `0` `13:00` will be used, if `1` `1:00pm` will be used.
 start_day | First day of week. `1` for Monday, `7` for Sunday.
@@ -557,7 +577,7 @@ default_reminder | Can be one of the following values: `email` to send reminders
 > An example of getting the user's absolute URL to redirect or to open in a browser:
 
 ```shell
-$ curl https://todoist.com/API/getRedirectLink \
+$ curl https://todoist.com/API/v6/get_redirect_link \
     -d token=0123456789abcdef0123456789abcdef01234567
 {"link": "https:\/\/local.todoist.com\/secureRedirect?path=%2Fapp&token=abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
 ```
@@ -589,7 +609,7 @@ hash | The hash part of the path to redirect user's browser.
 > An example of getting the user's productivity stats:
 
 ```shell
-$ curl https://todoist.com/API/getProductivityStats \
+$ curl https://todoist.com/API/v6/get_productivity_stats \
     -d token=0123456789abcdef0123456789abcdef01234567
 {
   "karma_last_update": 50.0,
@@ -721,7 +741,7 @@ token | The user's token (received on login).
 > An example of updating the user's notification settings
 
 ```shell
-$ curl https://todoist.com/API/updateNotificationSetting \
+$ curl https://todoist.com/API/v6/update_notification_setting \
     -d token=0123456789abcdef0123456789abcdef01234567 \
     -d notification_type=item_completed \
     -d service=email \

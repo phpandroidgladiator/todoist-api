@@ -86,10 +86,13 @@ responsible_uid | The id of user who is responsible for accomplishing the curren
 > An example of adding a task:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_add", "temp_id": "$1411732480502", "timestamp": 1411732480502, "args": {"content": "Task1", "project_id": 128501470}}]'
-{"$1411732480502": 33548400}
+    -d items_to_sync='[{"type": "item_add", "temp_id": "$1411732480.1", "timestamp": "1411732480.1", "args": {"content": "Task1", "project_id": 128501470}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1411732480.1"}],
+  "TempIdMapping": {"$1411732480.1": 33548400},
+  ... }
 ```
 
 ```python
@@ -130,9 +133,12 @@ note | Add a note directly to the task, note is a string of the content.
 > An example of updating a task:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_update", "timestamp": 1411984521047, "args": {"id": 33548400, "priority": 2}}]'
+    -d items_to_sync='[{"type": "item_update", "timestamp": "1411984521.1", "args": {"id": 33548400, "priority": 2}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1411984521.1"}],
+  ... }
 ```
 
 ```python
@@ -171,9 +177,12 @@ responsible_uid | The id of user who is responsible for accomplishing the curren
 > An example of deleting a task:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_delete", "timestamp": 1411984533965, "args": {"ids": [33548400]}}]'
+    -d items_to_sync='[{"type": "item_delete", "timestamp": "1411984533.1", "args": {"ids": [33548400]}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1411984533.1"}],
+  ... }
 ```
 
 ```python
@@ -197,9 +206,13 @@ ids | List of the ids of the items to delete.
 > An example of moving of a task from one project to another project:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_move", "timestamp": 1411997433394, "args": {"project_items": {"128501470": [33548400]}, "to_project": 128501607}}]'
+    -d items_to_sync='[{"type": "item_move", "timestamp": "1411997433.1", "args": {"project_items": {"128501470": [33548400]}, "to_project": 128501607}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1411997433.1"}],
+  ... }
+
 ```
 
 ```python
@@ -223,9 +236,12 @@ to_project | A project_id that the items should be moved to. Could be `1245`.
 > An example of completing a task:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_complete", "timestamp": 1412001010042, "args": {"project_id": 128501470, "ids": [33548400]}}]'
+    -d items_to_sync='[{"type": "item_complete", "timestamp": "1412001010.1", "args": {"project_id": 128501470, "ids": [33548400]}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1412001010.1"}],
+  ... }
 ```
 
 ```python
@@ -256,9 +272,12 @@ in_history | If these tasks should be moved to history, default is `1`. Setting 
 > An example of uncompleting a task:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_uncomplete", "timestamp": 1412001918951, "args": {"project_id": 128501470, "ids": [33548400]}}]'
+    -d items_to_sync='[{"type": "item_uncomplete", "timestamp": "1412001918.1", "args": {"project_id": 128501470, "ids": [33548400]}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1412001918.1"}],
+  ... }
 ```
 
 ```python
@@ -289,9 +308,12 @@ update_item_orders | If this is set to `0` the item orders should not be updated
 > An example of restoring metadata about uncompleted items:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_uncomplete_update_meta", "timestamp": 1412061611473, "args": {"project_id": 128501470, "ids_to_metas": {"33548400": [0, 0, 1]}}}]'
+    -d items_to_sync='[{"type": "item_uncomplete_update_meta", "timestamp": "1412061611.1", "args": {"project_id": 128501470, "ids_to_metas": {"33548400": [0, 0, 1]}}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1412061611.1"}],
+  ... }
 ```
 
 ```python
@@ -315,9 +337,12 @@ ids_to_metas | A dictionary, where item id is the key, and its value is a list o
 > An example of completing a recurring task:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_update_date_complete", "timestamp": 1412089326280, "args": {"id": 33548400, "new_data_utc": "2014-10-30T23:59", "date_string": "every day", "is_forward": 1}}]'
+    -d items_to_sync='[{"type": "item_update_date_complete", "timestamp": "1412089326.1", "args": {"id": 33548400, "new_data_utc": "2014-10-30T23:59", "date_string": "every day", "is_forward": 1}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412089326.1"}],
+  ... }
 ```
 
 ```python
@@ -343,9 +368,12 @@ is_forward | Indicates if it's a complete `1` or uncomplete `0`.
 > An example of updating the orders and indents of multiple items at once:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_update_orders_indents", "timestamp": 1412089328586, "args": {"ids_to_orders_indents": {"33548400": [1, 1]}}}]'
+    -d items_to_sync='[{"type": "item_update_orders_indents", "timestamp": "1412089328.1", "args": {"ids_to_orders_indents": {"33548400": [1, 1]}}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1412089328.1"}],
+  ... }
 ```
 
 ```python
@@ -368,9 +396,12 @@ ids_to_orders_indents | A dictionary, where an item id is the key, and a list wi
 > An example of updating the day orders of multiple items at once:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "item_update_day_orders", "timestamp": 1412089509020, "args": {"ids_to_orders": {"33548400": 1}}}]'
+    -d items_to_sync='[{"type": "item_update_day_orders", "timestamp": "1412089509.1", "args": {"ids_to_orders": {"33548400": 1}}}]'
+{ ...
+  "SyncStatus": [{"status": [{"33548400": "ok"}], "timestamp": "1412089509.1"}],
+  ... }
 ```
 
 ```python

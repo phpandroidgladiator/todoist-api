@@ -85,10 +85,13 @@ If you upload an audio file, you may provide an extra attribute `file_duration` 
 > An example of adding a note:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_add", "temp_id": "$1412325057551", "timestamp": 1412325057551, "args": {"item_id": 33548400, "content": "Note1"}}]'
-{"$1412325057551": 1234}
+    -d items_to_sync='[{"type": "note_add", "temp_id": "$1412325057.1", "timestamp": "1412325057.1", "args": {"item_id": 33548400, "content": "Note1"}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412325057.1"}],
+  "TempIdMapping": {"$1412325057.1": 1234},
+  ... }
 ```
 
 ```python
@@ -118,9 +121,12 @@ file_attachment | A file attached to the note.
 > An example of updating a note:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_update", "timestamp": 1412325418683, "args": {"note_id": 1234, "content": "UpdatedNote1"}}]'
+    -d items_to_sync='[{"type": "note_update", "timestamp": "1412325418.1", "args": {"note_id": 1234, "content": "UpdatedNote1"}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412325418.1"}],
+  ... }
 ```
 
 ```python
@@ -151,9 +157,12 @@ file_attachment | A file attached to the note.
 > An example of deleting a note:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_delete", "timestamp": 1412325418683, "args": {"note_id": 1234, "item_id": 33548400}}]'
+    -d items_to_sync='[{"type": "note_delete", "timestamp": "1412325478.1", "args": {"note_id": 1234, "item_id": 33548400}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412325478.1"}],
+  ... }
 ```
 
 ```python

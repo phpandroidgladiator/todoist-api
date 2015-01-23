@@ -61,10 +61,13 @@ last_updated | A timestamp when the project was last updated (updated means, nam
 > An example of adding a project:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "project_add", "temp_id": "$1411654292446", "timestamp": 1411654292446, "args": {"name": "Project4"}}]'
-{'$1411654292446': 128501815}
+    -d items_to_sync='[{"type": "project_add", "temp_id": "$1411654292.1", "timestamp": "1411654292.1", "args": {"name": "Project4"}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1411654292.1"}],
+  "TempIdMapping": {'$1411654292.1': 128501815},
+  ... }
 ```
 
 ```python
@@ -95,9 +98,12 @@ order | The order of the new project.
 > An example of updating a project:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "project_update", "timestamp": 1411654327479, "args": {"id": 128501815, "indent": 2}}]'
+    -d items_to_sync=[{"type": "project_update", "timestamp": "1411654327.1", "args": {"id": 128501815, "indent": 2}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1411654327.1"}],
+  ... }
 ```
 
 ```python
@@ -132,9 +138,12 @@ collapsed | `1` if the project should be collapsed, `0` if it should not be coll
 
 ```shell
 
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "project_delete", "timestamp": 1411654352338, "args": {"ids": [128501815]}}]'
+    -d items_to_sync=[{"type": "project_delete", "timestamp": "1411654352.1", "args": {"ids": [128501815]}}]'
+{ ...
+  "SyncStatus": [{"status": [{"128501815": "ok"}], "timestamp": "1411654352.1"}],
+  ... }
 ```
 
 ```python
@@ -159,9 +168,12 @@ ids | List of the ids of the projects to delete.
 > An example of archiving a project:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "project_archive", "timestamp": 1411654438975, "args": {"id": 128501682}}]'
+    -d items_to_sync=[{"type": "project_archive", "timestamp": "1411654438.1", "args": {"id": 128501682}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1411654438.1"}],
+  ... }
 ```
 
 ```python
@@ -185,9 +197,12 @@ id | The id of the project to archive.
 > An example of unarchiving a project:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "project_unarchive", "timestamp": 1411654459062, "args": {"id": 128501682}}]'
+    -d items_to_sync=[{"type": "project_unarchive", "timestamp": "1411654459.1", "args": {"id": 128501682}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1411654459.1"}],
+  ... }
 ```
 
 ```python
@@ -211,9 +226,17 @@ id | The id of the project to unarchive.
 > An example of updating the orders and indents of multiple projects at once:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "project_update_orders_indents", "timestamp": 1411654466656, "args": {"ids_to_orders_indents": {"128501470": [42, 1], "128501607": [43, 1]}}}]'
+    -d items_to_sync=[{"type": "project_update_orders_indents", "timestamp": "1411654466.1", "args": {"ids_to_orders_indents": {"128501470": [42, 1], "128501607": [43, 1]}}}]'
+{ ...
+  "SyncStatus": [
+    { "status":
+      [ {"128501470": "ok"},
+        {"128501607": "ok"} ],
+      "timestamp": "1411654459.1" },
+  ],
+  ... }
 ```
 
 ```python

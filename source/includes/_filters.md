@@ -41,10 +41,14 @@ query | The query to search for. [Examples of searches](https://todoist.com/Help
 > An example of adding a filter:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "filter_add", "temp_id": "$1412333089053", "timestamp": 1412333089053, "args": {"name": "Filter1", "query": "no due date"}}]'
-{"$1412333089053": 9}
+    -d items_to_sync='[{"type": "filter_add", "temp_id": "$1412333089.1", "timestamp": "1412333089.1", "args": {"name": "Filter1", "query": "no due date"}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412333089.1"}],
+  "TempIdMapping": {"$1412333089.1": 9},
+  ... }
+
 ```
 
 ```python
@@ -75,9 +79,12 @@ color | The color of the filter.
 > An example of updating a filter:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "filter_update", "timestamp": 1412334986045, "args": {"id": 9, "query": "tomorrow"}}]'
+    -d items_to_sync='[{"type": "filter_update", "timestamp": "1412334986.1", "args": {"id": 9, "query": "tomorrow"}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412334986.1"}],
+  ... }
 ```
 
 ```python
@@ -109,9 +116,12 @@ color | The color of the filter.
 > An example of deleting a filter:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "filter_delete", "timestamp": 1412336184893, "args": {"id": 9}}]'
+    -d items_to_sync='[{"type": "filter_delete", "timestamp": "1412336184.1", "args": {"id": 9}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412336184.1"}],
+  ... }
 ```
 
 ```python
@@ -135,9 +145,17 @@ id | The id of the filter.
 > An example of updating the orders of multiple filters at once:
 
 ```shell
-$ curl https://todoist.com/TodoistSync/v5.3/sync -X POST \
+$ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "filter_update_orders", "timestamp": 1412336529401, "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
+    -d items_to_sync=[{"type": "filter_update_orders", "timestamp": "1412336529.1", "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
+{ ...
+  "SyncStatus": [
+    { "status":
+      [ {"9": "ok"},
+        {"10": "ok"} ],
+      "timestamp": "1412336529.1" },
+  ],
+  ... }
 ```
 
 ```python

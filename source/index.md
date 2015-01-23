@@ -6,8 +6,8 @@ language_tabs:
   - python: PYTHON
 
 includes:
-  - user
   - data
+  - user
   - projects
   - items
   - labels
@@ -25,7 +25,7 @@ search: true
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Doist
+Copyright (c) 2014-2015 Doist
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
