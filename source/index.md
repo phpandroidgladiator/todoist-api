@@ -1,6 +1,7 @@
 ---
 title: Todoist API
 
+
 language_tabs:
   - shell: CURL
   - python: PYTHON
@@ -18,7 +19,8 @@ includes:
   - sharing
   - urlschemes
 
-search: true
+search: false
+layout: doc_layout
 ---
 
 <!--
