@@ -70,6 +70,11 @@ html, body {
     color: #a2a5a6;
     margin-right: 2em;
     font-size: 14px;
+    font-weight: 600;
+
+    &:hover {
+      color: #474746;
+    }
   }
 }
 
@@ -207,7 +212,7 @@ a{
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-weight: normal;
+    font-weight: 600;
     font-size: 14px;
   }
 
@@ -231,6 +236,9 @@ a{
       @include transition-duration(230ms);
       a{
         color: $nav-text;
+
+        &:hover {
+        }
       }
     }
     &:first-child{
@@ -245,9 +253,9 @@ a{
     // @include box-shadow(0px 1px 0px $nav-active-shadow);
     background-color: $nav-active-bg;
     color: $nav-active-text;
+
     a{
       color: $nav-active-text;
-      text-decoration: underline;
     }
   }
 
