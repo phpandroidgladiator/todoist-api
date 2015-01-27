@@ -205,7 +205,7 @@ Redirect URI Mismatch Error | Occurs when the `redirect_uri` does not match the 
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/login_plain \
+$ curl https://todoist.com/API/login \
     -d email=me@example.com \
     -d password=secret
 {
@@ -246,7 +246,7 @@ $ curl https://todoist.com/API/login_plain \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI()
->>> api.login_plain('me@example.com', 'secret')
+>>> api.login('me@example.com', 'secret')
 {
   'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
@@ -297,7 +297,7 @@ password | User's password.
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/v6/login_oauth \
+$ curl https://todoist.com/API/v6/login_with_google \
     -d email=me@example.com \
     -d oauth2_token=01234567-89ab-cdef-0123-456789abcdef
 
@@ -339,7 +339,7 @@ $ curl https://todoist.com/API/v6/login_oauth \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI()
->>> api.login_oauth('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
+>>> api.login_with_google('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
 {
   'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
