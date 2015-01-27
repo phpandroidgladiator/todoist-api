@@ -49,6 +49,7 @@ Property | Description
 id | The id of the note.
 content | The content of the note.
 item_id | The item which the note is part of.
+project_id | The project which the note is part of (in the case of a project note)
 file_attachment | A file attached to the note.
 
 ### File attachments
@@ -108,6 +109,42 @@ Add a note.
 Argument | Description
 -------- | -----------
 item_id | The id of the item.
+content | The content of the note.
+
+### Optional arguments
+
+Argument | Description
+-------- | -----------
+file_attachment | A file attached to the note.
+
+## Add a project note
+
+> An example of adding a project note:
+
+```shell
+$ curl https://todoist.com/API/v6/sync -X POST \
+    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d items_to_sync='[{"type": "note_add", "temp_id": "$1412325057.1", "timestamp": "1412325057.1", "args": {"project_id": 128501682, "content": "Note1"}}]'
+{ ...
+  "SyncStatus": [{"status": "ok", "timestamp": "1412325057.1"}],
+  "TempIdMapping": {"$1412325057.1": 1234},
+  ... }
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> note = api.note_add(128501682, 'Note1')
+>>> api.commit()
+```
+
+Add a project note.
+
+### Required arguments
+
+Argument | Description
+-------- | -----------
+project_id | The id of the project.
 content | The content of the note.
 
 ### Optional arguments
