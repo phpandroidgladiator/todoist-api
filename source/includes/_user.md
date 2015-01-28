@@ -205,7 +205,7 @@ Redirect URI Mismatch Error | Occurs when the `redirect_uri` does not match the 
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/login \
+$ curl https://todoist.com/API/v6/login \
     -d email=me@example.com \
     -d password=secret
 {
