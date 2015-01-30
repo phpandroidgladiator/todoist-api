@@ -54,7 +54,7 @@ file_attachment | A file attached to the note.
 
 ### File attachments
 
-A file attachment is represented as a JSON object. The file attachment may point to a document, previously uploaded by the `uploadFile` API call, or by any external resource.
+A file attachment is represented as a JSON object. The file attachment may point to a document, previously uploaded by the `upload_file` API call, or by any external resource.
 
 ### Base file properties
 
@@ -68,7 +68,7 @@ upload_state | Upload completion state.
 
 ### Image file properties
 
-If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: ["http://example.com/img.jpg",400,300]. "Canonical" thumbnails (ones we create by `uploadFile` API call) have following sizes: 96x96, 288x288, 528x528.
+If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: ["http://example.com/img.jpg",400,300]. "Canonical" thumbnails (ones we create by `upload_file` API call) have following sizes: 96x96, 288x288, 528x528.
 
 Attribute | Description
 --------- | -----------
