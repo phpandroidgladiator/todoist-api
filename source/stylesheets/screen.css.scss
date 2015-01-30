@@ -37,6 +37,43 @@ html, body {
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.site-header {
+  padding: 10px 10px;
+  background-color: #FAFAFA;
+}
+
+.site-logo {
+  float: left;
+  width: 230px;
+  text-align: right;
+
+  img {
+    width: 40px;
+    padding-right: 20px;
+    display: inline-block;
+  }
+}
+
+.site-nav {
+  float: left;
+  padding-left: 20px;
+  vertical-align: middle;
+  margin-top: 5px;
+
+  a {
+    color: #a2a5a6;
+    margin-right: 2em;
+    font-size: 14px;
+  }
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,14 +114,17 @@ a{
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
-  left: 0;
-  bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
   border-right: 1px solid $separator-color;
+
+  top: 70px;
+  left: 0;
+  bottom: 0;
+
+
   // language selector for mobile devices
   .lang-selector {
     display: none;
@@ -167,7 +207,7 @@ a{
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 14px;
   }
 
@@ -178,12 +218,13 @@ a{
     list-style: none;
     margin: 0;
     padding: 0;
-    line-height: 45px; //28px Before
+    line-height: 2em;
   }
 
   ul{
     li {
       color: $nav-text;
+      text-align: right;
       border-bottom: 1px solid $separator-color;
       @include transition-property('background');
       @include transition-timing-function('linear');
@@ -206,6 +247,7 @@ a{
     color: $nav-active-text;
     a{
       color: $nav-active-text;
+      text-decoration: underline;
     }
   }
 
@@ -214,7 +256,8 @@ a{
   .tocify-subheader {
     display: none; // tocify will override this when needed
     background-color: $nav-subitem-bg;
-    font-weight: 500;
+    font-weight: normal;
+    padding-bottom: 2em;
     .tocify-item{
       border:none;
     }
@@ -223,8 +266,9 @@ a{
     }
     .tocify-item>a {
       padding-left: $nav-padding + $nav-indent;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 2em;
     }
 
     &>li:last-child {
@@ -320,6 +364,7 @@ a{
     position: fixed;
     z-index: 50;
     border-bottom: 5px solid $lang-select-active-bg;
+    bottom: 0;
   }
 }
 
