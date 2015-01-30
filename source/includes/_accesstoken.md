@@ -112,12 +112,13 @@ Bad Authorization Code Error | Occurs when the `code` parameter does not match t
 Incorrect Client Credentials Error | Occurs when the `client_id` or `client_secret` parameters are incorrect: `{"error": "incorrect_application_credentials"}`
 Redirect URI Mismatch Error | Occurs when the `redirect_uri` does not match the redirect URL which was specified in the previous authorization request: `{"error": "redirect_uri_mismatch"}`
 
+
 ## Login with password
 
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/login_plain \
+$ curl https://todoist.com/API/v6/login \
     -d email=me@example.com \
     -d password=secret
 {
@@ -158,7 +159,7 @@ $ curl https://todoist.com/API/login_plain \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI()
->>> api.login_plain('me@example.com', 'secret')
+>>> api.login('me@example.com', 'secret')
 {
   'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
@@ -209,7 +210,7 @@ password | User's password.
 > On success, an HTTP 200 OK with a JSON object with user data is returned:
 
 ```shell
-$ curl https://todoist.com/API/v6/login_oauth \
+$ curl https://todoist.com/API/v6/login_with_google \
     -d email=me@example.com \
     -d oauth2_token=01234567-89ab-cdef-0123-456789abcdef
 
@@ -251,7 +252,7 @@ $ curl https://todoist.com/API/v6/login_oauth \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI()
->>> api.login_oauth('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
+>>> api.login_with_google('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
 {
   'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
@@ -311,6 +312,7 @@ auto_signup | If set to `1` and user with this email and Google Account doesn't 
 full_name | User's full name if user is about to be registered. If not set, a user email nickname will be used.
 timezone | User's timezone if user is about to be registered. If not set, we guess the timezone from the client's IP address. In case of failure, "UTC" timezone will be set up for a newly created account.
 lang | User's language. Can be `de`, `fr`, `ja`, `pl`, `pt_BR`, `zh_CN`, `es`, `hi`, `ko`, `pt`, `ru`, `zh_TW`
+
 
 
 ## Token from Setting

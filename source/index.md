@@ -19,9 +19,9 @@ includes:
   - user
   - livenotifications
   - sharing
-  - urlschemes
   - fileupload
   - search
+  - urlschemes
 
 search: false
 layout: doc_layout
