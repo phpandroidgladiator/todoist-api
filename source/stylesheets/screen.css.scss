@@ -84,6 +84,20 @@ html, body {
       color: #474746;
     }
   }
+
+  &.index {
+    a.link-index {
+      color: #474746;
+      cursor: default;
+    }
+  }
+
+  &.appconsole {
+    a.link-appconsole {
+      color: #474746;
+      cursor: default;
+    }
+  }
 }
 
 .app-console-wrap {
