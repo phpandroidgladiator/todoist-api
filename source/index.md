@@ -19,7 +19,6 @@ includes:
   - user
   - livenotifications
   - sharing
-  - fileupload
   - search
   - urlschemes
 
