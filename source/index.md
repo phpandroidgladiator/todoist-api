@@ -1,5 +1,5 @@
 ---
-title: Todoist API
+title: API Documentation | Todoist Developer
 
 
 language_tabs:
