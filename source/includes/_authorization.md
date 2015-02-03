@@ -1,4 +1,4 @@
-# Access Token
+# Authorization
 
 
 In order to make authorized calls to Todoist APIs, your application must first obtain an access token from the users. 

@@ -1,4 +1,4 @@
-# Data Search
+# Data Query and Search
 
 > On success, an HTTP 200 OK with a JSON object with the tasks found is returned:
 

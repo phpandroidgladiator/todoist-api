@@ -1,4 +1,4 @@
-# Sync API Schema
+# Sync API Workflow
 
 The API has been simplified (in version 6), and almost all interactions with
 the Todoist server can be done with a single call, which can be used to get the

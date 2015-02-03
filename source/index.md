@@ -8,8 +8,8 @@ language_tabs:
 
 includes:
   - introduction
-  - accesstoken
-  - apischema
+  - authorization
+  - apiworkflow
   - items
   - projects
   - labels
