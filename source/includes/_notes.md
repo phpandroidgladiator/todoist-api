@@ -160,7 +160,7 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_update", "timestamp": "1412325418.1", "args": {"note_id": 1234, "content": "UpdatedNote1"}}]'
+    -d items_to_sync='[{"type": "note_update", "timestamp": "1412325418.1", "args": {"id": 1234, "content": "UpdatedNote1"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412325418.1"}],
   ... }
@@ -180,7 +180,7 @@ Update a note.
 
 Argument | Description
 -------- | -----------
-note_id | The id of the note.
+id | The id of the note.
 
 ### Optional arguments
 
@@ -196,7 +196,7 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_delete", "timestamp": "1412325478.1", "args": {"note_id": 1234, "item_id": 33548400}}]'
+    -d items_to_sync='[{"type": "note_delete", "timestamp": "1412325478.1", "args": {"id": 1234, "item_id": 33548400}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412325478.1"}],
   ... }
@@ -216,5 +216,4 @@ Delete a note.
 
 Argument | Description
 -------- | -----------
-note_id | The id of the note.
-item_id | The id of the item.
+id | The id of the note.
