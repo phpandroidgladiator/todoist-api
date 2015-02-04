@@ -1,25 +1,4 @@
-# Data
-
-## Same-origin policy
-
-> Script for solving cross-domain security policy:
-
-```js
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = 'https://api.todoist.com/API/...&callback=callbackFunction';
-document.getElementsByTagName('head')[0].appendChild(script);
-```
-
-> The response data will look like this (callbackFunction will be called):
-
-```js
-callbackFunction({ JSON data here });
-```
-
-You can't use AJAX to directly communicate with Todoist, this is due to cross domain security policy of browsers. You can solve this by communicating with Todoist using a script tag.
-
-## Workflow
+# Workflow
 
 The API has been simplified (in version 6), and almost all interactions with
 the Todoist server can be done with a single call, which can be used to get the
@@ -45,75 +24,24 @@ get_redirect_link | Gets the redirect link.
 get_productivity_stats | Gets the productivity stats.
 update_notification_settings | Updates the notification settings.
 
-## Errors
+## Same-origin policy
 
-Another improvement in the version 6 of the API is the better and more
-consistent error reporting.  So now the server uses the HTTP status codes to
-indicate result or failure of a request.  And as is usually customary in web servers,
-a 2xx code indicates success, a 4xx code an error due to incorrect user
-provided information, and a 5xx code an internal, possibly temporary, error.
+> Script for solving cross-domain security policy:
 
-### Status codes
-
-Status code | Description
-------------|------------
-200 OK | The request was processed successfuly.
-400 Bad Request | The request was incorrect.
-500 Internal Server Error | The request failed due to a server error.
-
-### Return values
-
-> An example of an error return value:
-
-```json
-{ "error": [18, "Required argument is missing: name"]}
+```js
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'https://api.todoist.com/API/...&callback=callbackFunction';
+document.getElementsByTagName('head')[0].appendChild(script);
 ```
 
-In any case, a JSON object is always returned.  So if the request was succesful, a JSON object with the relevant to the request data is returned or if there is no data to return a simple `"ok"`, while if the request failed, a JSON object of the format `{"error":[error_code, error_string]}` is returned (where `error_code` is a number, and `error_string` a description).
+> The response data will look like this (callbackFunction will be called):
 
-> An example of a single request sync return value:
-
-```json
-{
-  "SyncStatus": [{ "timestamp": "1411653990.1", "status": "ok"}]
-}
+```js
+callbackFunction({ JSON data here });
 ```
 
-> An example of a multiple requests sync return value:
-
-```json
-{
-  "SyncStatus": [
-    { "timestamp": "1411653991.1", "status": "ok"},
-    { "timestamp": "1411653991.2",
-      "status": {"error": [15, "Invalid temporary id"]} },
-  ]
-}
-```
-
-> An example of a single request operating on multiple objects return value:
-
-```json
-{
-  "SyncStatus": [
-    { "timestamp": "1411653992.2",
-      "status": [
-        {"128501470": "ok"},
-        {"128501607": {"error": [20, "Project not found"]}}
-      ]
-    }
-  ]
-}
-```
-
-Also, specifically for the case of the `sync` request, where multiple requests can be sent with a single call by the client, there is a special object reserved for indicating the return value of each specific request, the `SyncStatus`.
-
-The `SyncStatus` is a list of the return values of each of the multiple
-requests.  Each return value in this list contains a `timestamp` field which
-matches the timestamp of each request, and a `status` field which is the actual
-return value of each request.
-
-If one or more of the multiple requests operate in multiple objects, then the `status` field is itself a list of return values one for each of the multiple objects, where each object is distinguished by its id.
+You can't use AJAX to directly communicate with Todoist, this is due to cross domain security policy of browsers. You can solve this by communicating with Todoist using a script tag.
 
 ## Retrieve data
 
@@ -565,300 +493,72 @@ Your application will use temporary ids and the Sync API has special support for
 
 While the system remembers temporary ids and their mappings to real ids, it's important to use real ids when they are available to you (typically after a sync). This is important since the API only remembers the last 500 temporary ids for each user!
 
-## Date query and search
+## Errors
 
-> On success, an HTTP 200 OK with a JSON object with the tasks found is returned:
+Another improvement in the version 6 of the API is the better and more
+consistent error reporting.  So now the server uses the HTTP status codes to
+indicate result or failure of a request.  And as is usually customary in web servers,
+a 2xx code indicates success, a 4xx code an error due to incorrect user
+provided information, and a 5xx code an internal, possibly temporary, error.
 
-```shell
-     { "due_date": "Wed 08 Oct 2014 20:59:59 +0000",
-        "is_deleted": 0,
-        "assigned_by_uid": 1855589,
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": null,
-        "day_order": 0,
-        "postpone_count": 0,
-        "in_history": 0,
-        "has_notifications": 0,
-        "indent": 1,
-        "date_added": "Tue 07 Oct 2014 06:11:06 +0000",
-        "user_id": 1855589,
-        "children": null,
-        "priority": 1,
-        "complete_count": 0,
-        "checked": 0,
-        "mm_offset": 180,
-        "is_dst": null,
-        "id": 35825425,
-        "content": "Task2",
-        "item_order": 2,
-        "seq_no": 2306453653,
-        "responsible_uid": null,
-        "project_id": 128501470,
-        "collapsed": 0,
-        "date_string": "8 Oct" },
-      { "due_date": "Wed 08 Oct 2014 20:59:59 +0000",
-        "is_deleted": 0,
-        "assigned_by_uid": 1855589,
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": null,
-        "day_order": 1,
-        "postpone_count": 0,
-        "in_history": 0,
-        "has_notifications": 0,
-        "indent": 1,
-        "date_added": "Tue 07 Oct 2014 06:20:48 +0000",
-        "user_id": 1855589,
-        "children": null,
-        "priority": 1,
-        "complete_count": 0,
-        "checked": 0,
-        "mm_offset": 180,
-        "is_dst": null,
-        "id": 35826737,
-        "content": "Task 3",
-        "item_order": 3,
-        "seq_no": 2306541514,
-        "responsible_uid": null,
-        "project_id": 128501470,
-        "collapsed": 0,
-        "date_string": "8 Oct"}
-    ]
-  },
-  {
-    "query": "p1",
-    "type": "priority",
-    "data": [
-      { "due_date": null,
-        "is_deleted": 0,
-        "assigned_by_uid": 1855589,
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": null,
-        "postpone_count": 5,
-        "in_history": 0,
-        "has_notifications": 0,
-        "indent": 1,
-        "date_added": "Fri 26 Sep 2014 11:54:48 +0000",
-        "user_id": 1855589,
-        "children": null,
-        "priority": 4,
-        "complete_count": 1,
-        "checked": 0,
-        "mm_offset": 180,
-        "is_dst": null,
-        "id": 33548400,
-        "content": "Task1",
-        "item_order": 1,
-        "seq_no": 2306454606,
-        "responsible_uid": null,
-        "project_id": 128501470,
-        "collapsed": 0,
-        "date_string": "" }
-    ]
-  }
-]
+### Status codes
+
+Status code | Description
+------------|------------
+200 OK | The request was processed successfuly.
+400 Bad Request | The request was incorrect.
+500 Internal Server Error | The request failed due to a server error.
+
+### Return values
+
+> An example of an error return value:
+
+```json
+{ "error": [18, "Required argument is missing: name"]}
 ```
 
-```python
->>> import todoist
->>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.query(['tomorrow', 'p1'])
-[
-  {
-    'data': [
-      { 'assigned_by_uid': 1855589,
-        'checked': 0,
-        'children': None,
-        'collapsed': 0,
-        'complete_count': 0,
-        'content': 'Task2',
-        'date_added': 'Tue 07 Oct 2014 06:11:06 +0000',
-        'date_string': '8 Oct',
-        'day_order': 0,
-        'due_date': 'Wed 08 Oct 2014 20:59:59 +0000',
-        'has_notifications': 0,
-        'id': 35825425,
-        'in_history': 0,
-        'indent': 1,
-        'is_archived': 0,
-        'is_deleted': 0,
-        'is_dst': None,
-        'item_order': 2,
-        'labels': [],
-        'mm_offset': 180,
-        'postpone_count': 0,
-        'priority': 1,
-        'project_id': 128501470,
-        'responsible_uid': None,
-        'seq_no': 2306453653L,
-        'sync_id': None,
-        'user_id': 1855589 },
-      { 'assigned_by_uid': 1855589,
-        'checked': 0,
-        'children': None,
-        'collapsed': 0,
-        'complete_count': 0,
-        'content': 'Task 3',
-        'date_added': 'Tue 07 Oct 2014 06:20:48 +0000',
-        'date_string': '8 Oct',
-        'day_order': 1,
-        'due_date': 'Wed 08 Oct 2014 20:59:59 +0000',
-        'has_notifications': 0,
-        'id': 35826737,
-        'in_history': 0,
-        'indent': 1,
-        'is_archived': 0,
-        'is_deleted': 0,
-        'is_dst': None,
-        'item_order': 3,
-        'labels': [],
-        'mm_offset': 180,
-        'postpone_count': 0,
-        'priority': 1,
-        'project_id': 128501470,
-        'responsible_uid': None,
-        'seq_no': 2306541514L,
-        'sync_id': None,
-        'user_id': 1855589 }
-    ],
-    'query': 'tomorrow',
-    'type': 'date'
-  },
-  {
-    'data': [
-      { 'assigned_by_uid': 1855589,
-        'checked': 0,
-        'children': None,
-        'collapsed': 0,
-        'complete_count': 1,
-        'content': 'Task1',
-        'date_added': 'Fri 26 Sep 2014 11:54:48 +0000',
-        'date_string': '',
-        'due_date': None,
-        'has_notifications': 0,
-        'id': 33548400,
-        'in_history': 0,
-        'indent': 1,
-        'is_archived': 0,
-        'is_deleted': 0,
-        'is_dst': None,
-        'item_order': 1,
-        'labels': [],
-        'mm_offset': 180,
-        'postpone_count': 5,
-        'priority': 4,
-        'project_id': 128501470,
-        'responsible_uid': None,
-        'seq_no': 2306454606L,
-        'sync_id': None,
-        'user_id': 1855589}],
-    'query': 'p1',
-    'type': 'priority'
-  }
-]
-```
+In any case, a JSON object is always returned.  So if the request was succesful, a JSON object with the relevant to the request data is returned or if there is no data to return a simple `"ok"`, while if the request failed, a JSON object of the format `{"error":[error_code, error_string]}` is returned (where `error_code` is a number, and `error_string` a description).
 
-You can query after date, priority or labels.
+> An example of a single request sync return value:
 
-### Required arguments
-
-Argument | Description
--------- | -----------
-token | The user's token (received on login).
-queries | A JSON list of queries to search. [Examples of searches](https://todoist.com/Help/timeQuery) can be found in the Todoist help page.
-
-### Optional arguments
-
-Argument | Description
--------- | -----------
-as_count | If set to `1` then no data will be returned, instead the count of tasks matching will be returned.
-js_date | If `js_date` is set to `1` dates will be formated as `new Date("Sun Apr 29 2007 23:59:59")`, otherwise they will be formatted as `"Sun Apr 29 2007 23:59:59"`.
-
-
-## File uploads
-
-> On success, an HTTP 200 OK with JSON data of file data is returned:
-
-```shell
-$ curl https://todoist.com/API/v6/upload_file -X POST \
-    -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d file_name=example.jpg \
-    --data-binary @example.jpg
+```json
 {
-  "file_name": "example.jpg",
-  "file_size": 85665,
-  "file_type": "image/jpeg",
-  "file_url": "https://*.cloudfront.net/*/example.jpg",
-  "tn_l": [
-    "https://*.cloudfront.net/tn_l_*.jpg",
-    400, 309
-  ],
-  "tn_m": [
-    "https://*.cloudfront.net/tn_m_*.jpg",
-    288, 222
-  ],
-  "tn_s": [
-    "https://*.cloudfront.net/tn_s_*.jpg",
-    96, 74
+  "SyncStatus": [{ "timestamp": "1411653990.1", "status": "ok"}]
+}
+```
+
+> An example of a multiple requests sync return value:
+
+```json
+{
+  "SyncStatus": [
+    { "timestamp": "1411653991.1", "status": "ok"},
+    { "timestamp": "1411653991.2",
+      "status": {"error": [15, "Invalid temporary id"]} },
   ]
 }
 ```
 
-```python
->>> import todoist
->>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.upload_file('example.jpg')
+> An example of a single request operating on multiple objects return value:
+
+```json
 {
-  'file_name': 'example.jpg',
-  'file_size': 85665,
-  'file_type': 'image/jpeg',
-  'file_url': 'https://*.cloudfront.net/*/example.jpg',
-  'tn_l': [
-    'https://*.cloudfront.net/tn_l_*.jpg',
-    400, 309
-  ],
-  'tn_m': [
-    'https://*.cloudfront.net/tn_m_*.jpg',
-    288, 222
-  ],
-  'tn_s': [
-    'https://*.cloudfront.net/tn_s_*.jpg',
-    96, 74
+  "SyncStatus": [
+    { "timestamp": "1411653992.2",
+      "status": [
+        {"128501470": "ok"},
+        {"128501607": {"error": [20, "Project not found"]}}
+      ]
+    }
   ]
 }
-
 ```
-Upload a file suitable to be passed as a `file_attachment` attribute to the `note_add` or `note_update` calls.
 
-### Required parameters
+Also, specifically for the case of the `sync` request, where multiple requests can be sent with a single call by the client, there is a special object reserved for indicating the return value of each specific request, the `SyncStatus`.
 
-Parameter | Description
---------- | -----------
-token | The user's token (received on login).
-file_name | The file name to be uploaded.
+The `SyncStatus` is a list of the return values of each of the multiple
+requests.  Each return value in this list contains a `timestamp` field which
+matches the timestamp of each request, and a `status` field which is the actual
+return value of each request.
 
-### Base file properties
-
-Attribute | Description
---------- | -----------
-file_name | The name of the file
-file_size | The size of the file in bytes
-file_type | MIME type
-file_url | The URL where the file is located. Note that we don't cache the remote content on our servers and stream or expose files directly from third party resources. In particular this means that you should avoid providing links to non-encrypted (plain HTTP) respources, as exposing this files in Todoist may issue a browser warning.
-upload_state | Upload completion state
-
-### Image file properties
-
-If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: `["http://example.com/img.jpg",400,300]`. "Canonical" thumbnails (ones we create by `upload_file` API call) have following sizes: `96x96`, `288x288`, `528x528`.
-
-Attribute | Description
---------- | -----------
-tn_l | Large thumbnail.
-tn_m | Medium thumbnail.
-tn_s | Small thumbnail.
-
-### Audio file properties
-
-If you upload an audio file, you may provide an extra attribute `file_duration` (duration of the audio file in seconds, which takes an integer value). In the web interface the file is rendered back with a `<audio>` tag, so you should make sure it's supported in current web browsers. See [supported media formats](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats) for the reference.
+If one or more of the multiple requests operate in multiple objects, then the `status` field is itself a list of return values one for each of the multiple objects, where each object is distinguished by its id.

@@ -6,7 +6,7 @@ language_tabs:
   - python: PYTHON
 
 includes:
-  - data
+  - workflow
   - user
   - projects
   - items
@@ -16,6 +16,7 @@ includes:
   - reminders
   - livenotifications
   - sharing
+  - query
   - urlschemes
 
 search: true
