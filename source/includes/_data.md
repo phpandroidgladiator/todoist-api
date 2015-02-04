@@ -66,7 +66,7 @@ Status code | Description
 > An example of an error return value:
 
 ```json
-{ "error": [18, "Required arguments are missing"]}
+{ "error": [18, "Required argument is missing: name"]}
 ```
 
 In any case, a JSON object is always returned.  So if the request was succesful, a JSON object with the relevant to the request data is returned or if there is no data to return a simple `"ok"`, while if the request failed, a JSON object of the format `{"error":[error_code, error_string]}` is returned (where `error_code` is a number, and `error_string` a description).
