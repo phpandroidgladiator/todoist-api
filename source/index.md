@@ -14,10 +14,10 @@ includes:
   - notes
   - filters
   - reminders
-  - livenotifications
-  - sharing
   - users
   - query
+  - sharing
+  - livenotifications
   - urlschemes
 
 search: true
