@@ -23,12 +23,23 @@ under the License.
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: white; // #393939 Before
+
+$color-red: #E24033;
+
+
+$color-body-grey: #6B6B70;
+$color-header-grey: #4b4b4c;
+$color-paper-grey: #F7F7F8;
+
+
+
+
+$nav-bg: #EFEFF0; // #393939 Before
 $examples-bg: #393939;
 $code-bg: #292929;
 $code-annotation-bg: #1c1c1c;
-$nav-subitem-bg: white; // #262626 Before
-$nav-active-bg: white; // #2467af Before
+$nav-subitem-bg: #EFEFF0; // #262626 Before
+$nav-active-bg: #EFEFF0; // #2467af Before
 $lang-select-border: #000;
 $lang-select-bg: #222;
 $lang-select-active-bg: $examples-bg; // feel free to change this to blue or something
@@ -38,16 +49,19 @@ $aside-notice-bg: #8fbcd4;
 $aside-warning-bg: #c97a7e;
 $aside-success-bg: #6ac174;
 $search-notice-bg: #c97a7e;
-$separator-color: white;
-$title-color: #474746;
-$paragraph-color: #474746;
+$separator-color: #efefef;
+$paragraph-color: $color-body-grey;
 
 
 // TEXT COLORS
 ////////////////////
-$main-text: #333; // main content text color
-$nav-text: #A2A5A6; // #FFF Before
-$nav-active-text: black; // #FFF Before
+$title-color: $color-header-grey;
+$main-text: $color-body-grey; // main content text color
+
+$nav-text: #77787B; // #FFF Before
+
+
+$nav-active-text: $color-red; // #FFF Before
 $lang-select-text: #fff; // color of unselected language tab text
 $lang-select-active-text: #fff; // color of selected language tab text
 $lang-select-pressed-text: #fff; // color of language tab text when mouse is pressed
@@ -55,6 +69,9 @@ $lang-select-pressed-text: #fff; // color of language tab text when mouse is pre
 
 // SIZES
 ////////////////////
+
+$top-nav-height: 42px;
+
 $nav-width: 230px; // width of the navbar
 $examples-width: 50%; // portion of the screen taken up by code examples
 $logo-margin: 20px; // margin between nav items and logo, ignored if search is active
@@ -79,6 +96,7 @@ $phone-width: $tablet-width - $nav-width; // min width before reverting to mobil
 %header-font {
   @extend %default-font;
   font-weight: bold;
+  color: $title-color;
 }
 
 %code-font {
