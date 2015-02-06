@@ -1,10 +1,8 @@
 # Authorization
 
-In order to make authorized calls to Todoist APIs, your application must first obtain an access token from the users. 
-The sections below describe different ways of obtain such a token. 
+In order to make authorized calls to Todoist APIs, your application must first obtain an access token from the users. This section describes the different ways of obtaining such a token.
 
-Note that we encourage your application to use __OAuth__ protocol to obtain access token from the user, as the other authorization methods (`login` and `login_with_google` are scheduled for deprecation).
-
+Note that we encourage your application to use the [OAuth](http://en.wikipedia.org/wiki/OAuth) protocol to obtain the access token from the user, as the other authentication methods (`login` and `login_with_google`) are scheduled for deprecation.
 
 ## OAuth
 
@@ -86,15 +84,15 @@ $ curl https://todoist.com/oauth/access_token -X POST \
 }
 ```
 
-Once the authorization `code` has been acquired, it can be exchanged it for the access token at the endpoint `POST https://todoist.com/oauth/access_token`.
+Once you have the authorization `code`, you can exchange it for the access token at the endpoint `POST https://todoist.com/oauth/access_token`.
 
 Here follow the required parameters:
 
 Name | Description
 ---- | -----------
-client_id | The unique Client ID of the Todoist application that was registered.
-client_secret | The unique Client Secret of the Todoist application that was registered.
-code | The unique string code which was obtained in the previous step.
+client_id | The unique Client ID of the Todoist application that you registered.
+client_secret | The unique Client Secret of the Todoist application that you registered.
+code | The unique string code which you obtained in the previous step.
 
 There is also an optional parameter:
 
@@ -310,9 +308,8 @@ full_name | User's full name if user is about to be registered. If not set, a us
 timezone | User's timezone if user is about to be registered. If not set, we guess the timezone from the client's IP address. In case of failure, "UTC" timezone will be set up for a newly created account.
 lang | User's language. Can be `de`, `fr`, `ja`, `pl`, `pt_BR`, `zh_CN`, `es`, `hi`, `ko`, `pt`, `ru`, `zh_TW`
 
+## Token from Settings
 
-## Token from Setting
+You can also obtain your personal access token directly from the Todoist web application Settings: 
 
-You can also obtain the personal access token directly from Todoist Setting. 
-
-Settings -> Todoist Settings -> Account -> API token
+`Settings` -> `Todoist Settings` -> `Account` -> `API token`
