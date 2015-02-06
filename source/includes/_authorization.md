@@ -1,11 +1,9 @@
 # Authorization
 
-
 In order to make authorized calls to Todoist APIs, your application must first obtain an access token from the users. 
 The sections below describe different ways of obtain such a token. 
 
 Note that we encourage your application to use __OAuth__ protocol to obtain access token from the user, as the other authorization methods (`login` and `login_with_google` are scheduled for deprecation).
-
 
 
 ## OAuth
@@ -32,9 +30,9 @@ Here follow the required parameters:
 
 Name | Description
 ---- | -----------
-client_id | The unique Client ID of the Todoist application that was registered.
-scope | A comma separated list of permissions that the users will grant to the application. See below a table with more details about this.
-state | A unique and unguessable string. It is used for protection against cross-site request forgery attacks.
+client_id | The unique Client ID of the Todoist application that you registered.
+scope | A comma separated list of permissions which you would like the users to grant to your application. See below a table with more details about this.
+state | A unique and unguessable string. It is used to protect you against cross-site request forgery attacks.
 
 There is also an optional parameter:
 
@@ -52,20 +50,20 @@ data:read_write | Grants read and write access to application data, including ta
 data:delete | Grants permission to delete application data, including tasks, labels, and filters. 
 project:delete | Grants permission to delete projects.
 
-And here are some common errors that may be encountered:
+And here are some common errors that you may encountered:
 
 Error | Description
 ----- | -----------
-User Rejected Authorization Request | When the user denies the authorization request, Todoist will redirect the user to the configured redirect URI with `error` paramete: `http://example.com?error=access_denied`.
+User Rejected Authorization Request | When the user denies your authorization request, Todoist will redirect the user to the configured redirect URI with `error` paramete: `http://example.com?error=access_denied`.
 Redirect URI Mismatch | The `redirect_uri` parameter must either match or be the subpath of the redirect URI which was configured in application settings. If the requirement is not satisfied, Todoist will redirect the user to the configured redirect URI with `error` parameter: `http://example.com?error=redirect_uri_mismatch`
-Invalid Application Status | When an application exceeds the maximum token limit or when an application is being suspended due to abuse, Todoist will redirect the user to the configured redirect URI with the `error` parameter: `http://example.com?error=invalid_application_status`.
+Invalid Application Status | When your application exceeds the maximum token limit or when your application is being suspended due to abuse, Todoist will redirect the user to the configured redirect URI with the `error` parameter: `http://example.com?error=invalid_application_status`.
 Invalid Scope | When the `scope` parameter is invalid, Todoist will redirect the user to the configured redirect URI with `error` parameter: `http://example.com?error=invalid_scope`.
 
-### Step 2: The redirection to the application site
+### Step 2: The redirection to your application site
 
-When the authorization request is granted, the user will be redirected to the `redirect_uri` specified earlier. The redirect request will come with two query parameters attached: `code` and `state`. 
+When the user grants your authorization request , the user will be redirected to the `redirect_uri` which you specified earlier. The redirect request will come with two query parameters attached: `code` and `state`. 
 
-The `code` parameter contains the authorization code that will be used to exchange for an access token. The `state` parameter should match the `state` parameter that was supplied in the previous step.  If the `state` is unmatched, the request has been compromised by other parties, and the process should be aborted.
+The `code` parameter contains the authorization code that you will use to exchange for an access token. The `state` parameter should match the `state` parameter that you supplied in the previous step.  If the `state` is unmatched, your request has been compromised by other parties, and the process should be aborted.
 
 ### Step 3: The token exchange
 
@@ -102,16 +100,15 @@ There is also an optional parameter:
 
 Name | Description
 ---- | -----------
-redirect_uri | The URL that was specified in the first step.  Their values must be identical.
+redirect_uri | The URL that you specified in the first step.  Their values must be identical.
 
-And here are some common errors that may be encountered (all the error response will be in JSON format):
+And here are some common errors that you may encountered (all the error response will be in JSON format):
 
 Error | Description
 ----- | -----------
 Bad Authorization Code Error | Occurs when the `code` parameter does not match the code that is given in the redirect request: `{"error": "bad_authorization_code"}`
 Incorrect Client Credentials Error | Occurs when the `client_id` or `client_secret` parameters are incorrect: `{"error": "incorrect_application_credentials"}`
-Redirect URI Mismatch Error | Occurs when the `redirect_uri` does not match the redirect URL which was specified in the previous authorization request: `{"error": "redirect_uri_mismatch"}`
-
+Redirect URI Mismatch Error | Occurs when the `redirect_uri` does not match the redirect URL which you specified in the previous authorization request: `{"error": "redirect_uri_mismatch"}`
 
 ## Login with password
 
@@ -312,7 +309,6 @@ auto_signup | If set to `1` and user with this email and Google Account doesn't 
 full_name | User's full name if user is about to be registered. If not set, a user email nickname will be used.
 timezone | User's timezone if user is about to be registered. If not set, we guess the timezone from the client's IP address. In case of failure, "UTC" timezone will be set up for a newly created account.
 lang | User's language. Can be `de`, `fr`, `ja`, `pl`, `pt_BR`, `zh_CN`, `es`, `hi`, `ko`, `pt`, `ru`, `zh_TW`
-
 
 
 ## Token from Setting

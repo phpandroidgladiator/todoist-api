@@ -6,7 +6,7 @@ The Todoist API is based on [REST](http://en.wikipedia.org/wiki/Representational
 
 The [source code](https://github.com/Doist/todoist-api) of this API documentation is also available.
 
-## Libraries / Tools
+## Libraries
 
 ### Python
 
@@ -22,9 +22,7 @@ A [PyPI package](https://pypi.python.org/pypi/todoist-python) has been also prep
 
 There is more detailed documentation speficically for the Todoist Python API library, and this [API reference](http://todoist-python.readthedocs.org/en/latest/) documentation can be also read online.
 
-
-
-### JavaScript Embed
+## Same-origin policy
 
 > Script for solving cross-domain security policy:
 
@@ -41,5 +39,30 @@ document.getElementsByTagName('head')[0].appendChild(script);
 callbackFunction({ JSON data here });
 ```
 
-In the web browser environemnt, you can't use AJAX to directly communicate with Todoist due to cross domain security policy of browsers. You can solve this by communicating with Todoist using a script tag.
+You can't use AJAX to directly communicate with Todoist, this is due to cross domain security policy of browsers. You can solve this by communicating with Todoist using a script tag.
 
+## Overview
+
+The API has been simplified (in version 6), and almost all interactions with
+the Todoist server can be done with a single call, which can be used to get the
+full model (projects, items, etc.), and then update it, or perform changes to
+it.
+
+Then there are a few more auxiliary calls that can perform some actions that
+are not related to the full model, but are nonetheless useful.
+
+### Available calls
+
+Call | Description
+---- | -----------
+sync | Retrieves or sends data.
+query | Query after date, priority or labels.
+add_item | Adds a new item.
+upload_file | Uploads a file.
+login | Logins to the server using plain email/password.
+login_with_google | Logins to the server OAuth2.
+register | Registers a new account.
+delete_user | Deletes an existing account.
+get_redirect_link | Gets the redirect link.
+get_productivity_stats | Gets the productivity stats.
+update_notification_settings | Updates the notification settings.

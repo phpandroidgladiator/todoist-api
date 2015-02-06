@@ -54,7 +54,7 @@ file_attachment | A file attached to the note.
 
 ### File attachments
 
-A file attachment is represented as a JSON object. The file attachment may point to a document, previously uploaded by the `uploadFile` API call, or by any external resource.
+A file attachment is represented as a JSON object. The file attachment may point to a document, previously uploaded by the `upload_file` API call, or by any external resource.
 
 ### Base file properties
 
@@ -68,7 +68,7 @@ upload_state | Upload completion state.
 
 ### Image file properties
 
-If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: ["http://example.com/img.jpg",400,300]. "Canonical" thumbnails (ones we create by `uploadFile` API call) have following sizes: 96x96, 288x288, 528x528.
+If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: ["http://example.com/img.jpg",400,300]. "Canonical" thumbnails (ones we create by `upload_file` API call) have following sizes: 96x96, 288x288, 528x528.
 
 Attribute | Description
 --------- | -----------
@@ -160,7 +160,7 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_update", "timestamp": "1412325418.1", "args": {"note_id": 1234, "content": "UpdatedNote1"}}]'
+    -d items_to_sync='[{"type": "note_update", "timestamp": "1412325418.1", "args": {"id": 1234, "content": "UpdatedNote1"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412325418.1"}],
   ... }
@@ -180,7 +180,7 @@ Update a note.
 
 Argument | Description
 -------- | -----------
-note_id | The id of the note.
+id | The id of the note.
 
 ### Optional arguments
 
@@ -196,7 +196,7 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "note_delete", "timestamp": "1412325478.1", "args": {"note_id": 1234, "item_id": 33548400}}]'
+    -d items_to_sync='[{"type": "note_delete", "timestamp": "1412325478.1", "args": {"id": 1234, "item_id": 33548400}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412325478.1"}],
   ... }
@@ -216,12 +216,9 @@ Delete a note.
 
 Argument | Description
 -------- | -----------
-note_id | The id of the note.
-item_id | The id of the item.
+id | The id of the note.
 
-
-
-## File uploads
+## Upload a file
 
 > On success, an HTTP 200 OK with JSON data of file data is returned:
 
@@ -295,7 +292,7 @@ upload_state | Upload completion state
 
 ### Image file properties
 
-If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: `["http://example.com/img.jpg",400,300]`. "Canonical" thumbnails (ones we create by `uploadFile` API call) have following sizes: `96x96`, `288x288`, `528x528`.
+If you upload an image, you may provide thumbnail paths to ensure Todoist handles them appropriately. Valid thumbnail information is a JSON array with URL, width in pixels, height in pixels. Ex.: `["http://example.com/img.jpg",400,300]`. "Canonical" thumbnails (ones we create by `upload_file` API call) have following sizes: `96x96`, `288x288`, `528x528`.
 
 Attribute | Description
 --------- | -----------

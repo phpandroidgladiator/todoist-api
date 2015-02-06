@@ -9,17 +9,17 @@ language_tabs:
 includes:
   - introduction
   - authorization
-  - apiworkflow
-  - items
+  - workflow
   - projects
+  - items
   - labels
   - notes
   - filters
   - reminders
-  - user
-  - livenotifications
+  - users
+  - query
   - sharing
-  - search
+  - livenotifications
   - urlschemes
 
 search: false
@@ -51,4 +51,3 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 --> 
-

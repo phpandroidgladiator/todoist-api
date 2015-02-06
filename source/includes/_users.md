@@ -1,4 +1,4 @@
-# User
+# Users
 
 A user in Todoist is a JSON object. The dates will be in the UTC timezone. Typically a user object will have the following properties:
 
@@ -87,7 +87,6 @@ mobile_number | User's mobile number.
 mobile_host | User's mobile host.
 premium_until | When does the user's Premium subscription expire?
 default_reminder | What is the default reminder for the user? Reminders are only possible for Premium users. The default reminder can be one of the following:  `email`, `mobile`, `push`, and `no_default`.
-
 
 ## Register user
 
