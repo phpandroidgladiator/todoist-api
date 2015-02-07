@@ -22,7 +22,7 @@ A [PyPI package](https://pypi.python.org/pypi/todoist-python) has been also prep
 
 There is more detailed documentation speficically for the Todoist Python API library, and this [API reference](http://todoist-python.readthedocs.org/en/latest/) documentation can be also read online.
 
-## Same-origin policy
+## JSON-P Callbacks
 
 > Script for solving cross-domain security policy:
 
@@ -39,7 +39,8 @@ document.getElementsByTagName('head')[0].appendChild(script);
 callbackFunction({ JSON data here });
 ```
 
-You can't use AJAX to directly communicate with Todoist, this is due to cross domain security policy of browsers. You can solve this by communicating with Todoist using a script tag.
+Todoist API support [JSONP](http://en.wikipedia.org/wiki/JSONP) which allows you to get around the cross-domain policy and to request data from Todoist in the browser environemnt.
+
 
 ## Overview
 
