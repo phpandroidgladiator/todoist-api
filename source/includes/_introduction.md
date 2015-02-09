@@ -39,7 +39,7 @@ document.getElementsByTagName('head')[0].appendChild(script);
 callbackFunction({ JSON data here });
 ```
 
-Todoist API support [JSONP](http://en.wikipedia.org/wiki/JSONP) which allows you to get around the cross-domain policy and to request data from Todoist in the browser environemnt.
+The Todoist API supports [JSONP](http://en.wikipedia.org/wiki/JSONP) which allows you to get around the cross-domain policy and to request data from Todoist in the browser environment.
 
 
 ## Overview
