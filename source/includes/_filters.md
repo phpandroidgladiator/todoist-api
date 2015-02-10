@@ -90,7 +90,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> filter = api.filter_get_by_id(9)
+>>> filter = api.filters.get_by_id(9)
 >>> filter.update(query='tomorrow')
 >>> api.commit()
 ```
@@ -127,7 +127,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> filter = api.filter_get_by_id(9)
+>>> filter = api.filters.get_by_id(9)
 >>> filter.delete()
 >>> api.commit()
 ```

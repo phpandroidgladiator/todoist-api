@@ -81,7 +81,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> label = api.label_get_by_id(1234)
+>>> label = api.labels.get_by_id(1234)
 >>> label.update(color=3)
 >>> api.commit()
 ```
@@ -117,7 +117,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> label = api.label_get_by_id(1234)
+>>> label = api.labels.get_by_id(1234)
 >>> label.delete()
 >>> api.commit()
 ```

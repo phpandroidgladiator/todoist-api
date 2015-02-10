@@ -143,7 +143,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> reminder = api.reminder_get_by_id(1234)
+>>> reminder = api.reminders.get_by_id(1234)
 >>> reminder.update(due_date_utc='2014-10-10T15:00')
 >>> api.commit()
 ```
@@ -187,7 +187,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> reminder = api.reminder_get_by_id(1234)
+>>> reminder = api.reminders.get_by_id(1234)
 >>> reminder.delete()
 >>> api.commit()
 ```

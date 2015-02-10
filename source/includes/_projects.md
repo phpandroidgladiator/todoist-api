@@ -109,7 +109,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> project = api.project_get_by_id(128501815)
+>>> project = api.projects.get_by_id(128501815)
 >>> project.update(indent=2)
 >>> api.commit()
 ```
@@ -149,7 +149,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> project = api.project_get_by_name('Project4')
+>>> project = api.projects.get_by_id(128501815)
 >>> project.delete()
 >>> api.commit()
 ```
@@ -179,7 +179,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> project = api.project_get_by_id(128501682)
+>>> project = api.projects.get_by_id(128501682)
 >>> project.archive()
 >>> api.commit()
 ```
@@ -208,7 +208,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> project = api.project_get_by_name('Project4')
+>>> project = api.projects.get_by_id(128501815)
 >>> project.unarchive()
 >>> api.commit()
 ```
