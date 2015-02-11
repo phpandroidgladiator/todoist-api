@@ -37,7 +37,7 @@ color | The color of the label.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "label_register", "temp_id": "$1412168307.1", "timestamp": "1412168307.1", "args": {"name": "Label1"}}]'
+    -d commands='[{"type": "label_register", "temp_id": "$1412168307.1", "timestamp": "1412168307.1", "args": {"name": "Label1"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412168307.1"}],
   "TempIdMapping": {"$1412168307.1": 1234},
@@ -72,7 +72,7 @@ color | The color of the label.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "label_update", "timestamp": "1412168745.1", "args": {"id": 1234, "color": 3}}]'
+    -d commands='[{"type": "label_update", "timestamp": "1412168745.1", "args": {"id": 1234, "color": 3}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412168745.1"}],
   ... }
@@ -108,7 +108,7 @@ color | The color of the label.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "label_delete", "timestamp": "1412169068.1", "args": {"id": 1234}}]'
+    -d commands='[{"type": "label_delete", "timestamp": "1412169068.1", "args": {"id": 1234}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412169068.1"}],
   ... }

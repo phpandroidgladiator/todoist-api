@@ -43,7 +43,7 @@ query | The query to search for. [Examples of searches](https://todoist.com/Help
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "filter_add", "temp_id": "$1412333089.1", "timestamp": "1412333089.1", "args": {"name": "Filter1", "query": "no due date"}}]'
+    -d commands='[{"type": "filter_add", "temp_id": "$1412333089.1", "timestamp": "1412333089.1", "args": {"name": "Filter1", "query": "no due date"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412333089.1"}],
   "TempIdMapping": {"$1412333089.1": 9},
@@ -81,7 +81,7 @@ color | The color of the filter.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "filter_update", "timestamp": "1412334986.1", "args": {"id": 9, "query": "tomorrow"}}]'
+    -d commands='[{"type": "filter_update", "timestamp": "1412334986.1", "args": {"id": 9, "query": "tomorrow"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412334986.1"}],
   ... }
@@ -118,7 +118,7 @@ color | The color of the filter.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "filter_delete", "timestamp": "1412336184.1", "args": {"id": 9}}]'
+    -d commands='[{"type": "filter_delete", "timestamp": "1412336184.1", "args": {"id": 9}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412336184.1"}],
   ... }
@@ -147,7 +147,7 @@ id | The id of the filter.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync=[{"type": "filter_update_orders", "timestamp": "1412336529.1", "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
+    -d commands=[{"type": "filter_update_orders", "timestamp": "1412336529.1", "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
 { ...
   "SyncStatus": [
     { "status":

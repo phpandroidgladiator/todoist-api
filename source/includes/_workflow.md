@@ -302,7 +302,7 @@ SettingsNotifications | The same data as the `getNotificationSettings` API call 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "project_add", "temp_id": "$1411653993.1", "timestamp": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
+    -d commands='[{"type": "project_add", "temp_id": "$1411653993.1", "timestamp": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
 { "seq_no_global": 2180537513,
   "DayOrdersTimestamp": "1344642991.1",
   "UserId": 1855589,
@@ -347,7 +347,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.sync(items_to_sync=[{'type': 'project_add', 'temp_id': '$1411653993.1', 'timestamp': '1411653993.1', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
+>>> api.sync(commands=[{'type': 'project_add', 'temp_id': '$1411653993.1', 'timestamp': '1411653993.1', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
 { 'DayOrdersTimestamp': '1344642991.1',
   'SyncStatus': [
     {'status': 'ok', 'timestamp': '1411653993.1'}
@@ -397,7 +397,7 @@ It supports two big features which can make syncing easier: temporary ids, that 
 
 Parameter | Description
 --------- | -----------
-items_to_sync | A list of JSON object commands. These commands are specified later in the documentation.
+commands | A list of JSON object commands. These commands are specified later in the documentation.
 api_token | User's API token (returned on successful login). Else the session cookie is used.
 
 ### Explanation of extra data returned

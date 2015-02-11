@@ -51,7 +51,7 @@ notify_uid | The user id which should be notified of the reminder, typically the
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "reminder_add", "temp_id": "$1412573453.1", "timestamp": "1412573453.1", "args": {"item_id": 33511505, "service": "email", "minute_offset": 30}}]'
+    -d commands='[{"type": "reminder_add", "temp_id": "$1412573453.1", "timestamp": "1412573453.1", "args": {"item_id": 33511505, "service": "email", "minute_offset": 30}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412573453.1"}],
   "TempIdMapping": {"$1412573453.1": 1234},
@@ -70,7 +70,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "reminder_add", "temp_id": "$1412573453.1", "timestamp": "1412573453.1", "args": {"item_id": 33511505, "service": "email", "due_date_utc": "2014-10-15T11:00"}}]'
+    -d commands='[{"type": "reminder_add", "temp_id": "$1412573453.1", "timestamp": "1412573453.1", "args": {"item_id": 33511505, "service": "email", "due_date_utc": "2014-10-15T11:00"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412573453.1"}],
   "TempIdMapping": {"$1412573453.1": 1234},
@@ -89,7 +89,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "reminder_add", "temp_id": "$1412573453.1", "timestamp": "1412573453.1", "args": {"item_id": 33511505, "service": "email", "type": "location", "name": "Aliados", "loc_lat": "41.148581", "loc_long":"-8.610945000000015", "loc_trigger":"on_enter", "radius": 100}}]'
+    -d commands='[{"type": "reminder_add", "temp_id": "$1412573453.1", "timestamp": "1412573453.1", "args": {"item_id": 33511505, "service": "email", "type": "location", "name": "Aliados", "loc_lat": "41.148581", "loc_long":"-8.610945000000015", "loc_trigger":"on_enter", "radius": 100}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412573453.1"}],
   "TempIdMapping": {"$1412573453.1": 1234},
@@ -134,7 +134,7 @@ radius | The radius around the location that is still considered as part of the 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "reminder_update", "timestamp": "1412581522.1", "args": {"id": 1234, "due_date_utc": "2014-10-10T15:00"}}]'
+    -d commands='[{"type": "reminder_update", "timestamp": "1412581522.1", "args": {"id": 1234, "due_date_utc": "2014-10-10T15:00"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412581522.1"}],
   ... }
@@ -178,7 +178,7 @@ radius | The radius around the location that is still considered as part of the 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d api_token=0123456789abcdef0123456789abcdef01234567 \
-    -d items_to_sync='[{"type": "reminder_delete", "timestamp": "1412336184.1", "args": {"id": 9}}]'
+    -d commands='[{"type": "reminder_delete", "timestamp": "1412336184.1", "args": {"id": 9}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412336184.1"}],
   ... }
