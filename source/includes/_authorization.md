@@ -120,7 +120,7 @@ $ curl https://todoist.com/API/v6/login \
   "start_page": "overdue, 7 days",
   "date_format": 0,
   "last_used_ip": "10.20.30.40",
-  "token": "0123456789abcdef0123456789abcdef01234567",
+  "api_token": "0123456789abcdef0123456789abcdef01234567",
   "karma_trend": "-",
   "inbox_project": 128501411,
   "time_format": 0,
@@ -156,7 +156,7 @@ $ curl https://todoist.com/API/v6/login \
 >>> api = todoist.TodoistAPI()
 >>> api.login('me@example.com', 'secret')
 {
-  'token': '0123456789abcdef0123456789abcdef01234567',
+  'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
   'business_account_id': None,
   'date_format': 0,
@@ -213,7 +213,7 @@ $ curl https://todoist.com/API/v6/login_with_google \
   "start_page": "overdue, 7 days",
   "date_format": 0,
   "last_used_ip": "10.20.30.40",
-  "token": "0123456789abcdef0123456789abcdef01234567",
+  "api_token": "0123456789abcdef0123456789abcdef01234567",
   "karma_trend": "-",
   "inbox_project": 128501411,
   "time_format": 0,
@@ -249,7 +249,7 @@ $ curl https://todoist.com/API/v6/login_with_google \
 >>> api = todoist.TodoistAPI()
 >>> api.login_with_google('me@example.com', '01234567-89ab-cdef-0123-456789abcdef')
 {
-  'token': '0123456789abcdef0123456789abcdef01234567',
+  'api_token': '0123456789abcdef0123456789abcdef01234567',
   'beta': 0,
   'business_account_id': None,
   'date_format': 0,

@@ -31,7 +31,7 @@ A user in Todoist is a JSON object. The dates will be in the UTC timezone. Typic
   "is_dummy": 0,
   "premium_until": null,
   "join_date": "Wed 30 Apr 2014 13:24:38 +0000",
-  "token": "0123456789abcdef0123456789abcdef01234567",
+  "api_token": "0123456789abcdef0123456789abcdef01234567",
   "is_biz_admin": false,
   "default_reminder": null
 }
@@ -65,7 +65,7 @@ A user in Todoist is a JSON object. The dates will be in the UTC timezone. Typic
   'start_page': 'overdue, 7 days',
   'time_format': 0,
   'timezone': 'Europe/Athens',
-  'token': '0123456789abcdef0123456789abcdef01234567',
+  'api_token': '0123456789abcdef0123456789abcdef01234567',
   'tz_offset': ['+03:00', 3, 0, 1]
 }
 ```
@@ -74,7 +74,7 @@ A user in Todoist is a JSON object. The dates will be in the UTC timezone. Typic
 Property | Description
 -------- | -----------
 id| User's unique id.
-token | User's token (that should be used to call the other API methods).
+api_token | User's token (that should be used to call the other API methods).
 email | User's email.
 full_name | User's real name.
 start_page | User's default view on Todoist. The start page can be one of the following: `_info_page` for the info page, `_blank` for a blank page, `_project_<PROJECT_ID>` for project with id `<PROJECT_ID>`, and `<ANY_QUERY>` to query after anything.
@@ -103,7 +103,7 @@ $ curl https://todoist.com/API/v6/register \
   "start_page": "overdue, 7 days",
   "date_format": 1,
   "last_used_ip": "10.20.30.40",
-  "token": "0123456789abcdef0123456789abcdef01234567",
+  "api_token": "0123456789abcdef0123456789abcdef01234567",
   "karma_trend": "-",
   "inbox_project": 128501411,
   "time_format": 1,
@@ -145,7 +145,7 @@ $ curl https://todoist.com/API/v6/register \
   'is_premium': False,
   'sort_order': 0,
   'full_name': 'Example User',
-  'token': '0123456789abcdef0123456789abcdef01234567',
+  'api_token': '0123456789abcdef0123456789abcdef01234567',
   'shard_id': 2,
   'has_push_reminders': False,
   'id': 1855589,
