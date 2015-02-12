@@ -8,7 +8,7 @@ Commands that are related to sharing projects will be described in this section.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "share_project", "temp_id": "$1412585639.1", "timestamp": "1412585639.1", "args": {"project_id": "128501470", "message": "", "email": "you@example.com"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412585639.1"}],
@@ -43,7 +43,7 @@ message | A message to be sent to the user.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "delete_collaborator", "timestamp": "1412586651.1", "args": {"project_id": 128501470, "email": "you@example.com"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412586651.1"}],
@@ -72,7 +72,7 @@ email | The user email with whom the project was shared with.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "accept_invitation", "timestamp": "1412587467.1", "args": {"invitation_id": 1234,  "invitation_secret": "abcdefghijklmno"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412587467.1"}],
@@ -101,7 +101,7 @@ invitation_secret | The secret fetched from the live notification.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "reject_invitation", "timestamp": "1412587669.1", "args": {"invitation_id": 1234,  "invitation_secret": "abcdefghijklmno"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412587669.1"}],
@@ -130,7 +130,7 @@ invitation_secret | The secret fetched from the live notification.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "delete_invitation", "timestamp": "1412587915.1", "args": {"invitation_id": 128501470}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412587915.1"}],
@@ -158,7 +158,7 @@ invitation_id | The invitation to be deleted.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "take_ownership", "timestamp": "1412588044.1", "args": {"project_id": 128501470}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412588044.1"}],
@@ -186,7 +186,7 @@ project_id | The shared project of which to take the ownership.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "biz_accept_invitation", "timestamp": "1412588256.1", "args": {"invitation_id": 1234,  "invitation_secret": "abcdefghijklmno"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412588256.1"}],
@@ -215,7 +215,7 @@ invitation_secret | The secret fetched from the live notification.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "biz_reject_invitation", "timestamp": "1412588264.1", "args": {"invitation_id": 1234,  "invitation_secret": "abcdefghijklmno"}}]'
 ```
 

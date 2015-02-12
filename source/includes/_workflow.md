@@ -6,7 +6,7 @@
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d seq_no=0
 {
   "seq_no_global": 2180537512,
@@ -263,7 +263,7 @@ The `sync` API call is used to retrieve data (both all and only updated).
 
 Parameter | Description
 --------- | -----------
-api_token | User's API token (returned on successful login). Else the session cookie is used.
+token | User's API token (returned on successful login). Else the session cookie is used.
 seq_no | Sequence number. On the initial request you should pass `0`. On all other requests you should pass the last `seq_no` you received from the server.
 
 ### Optional parameters
@@ -301,7 +301,7 @@ SettingsNotifications | The same data as the `getNotificationSettings` API call 
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "project_add", "temp_id": "$1411653993.1", "timestamp": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
 { "seq_no_global": 2180537513,
   "DayOrdersTimestamp": "1344642991.1",
@@ -398,7 +398,7 @@ It supports two big features which can make syncing easier: temporary ids, that 
 Parameter | Description
 --------- | -----------
 commands | A list of JSON object commands. These commands are specified later in the documentation.
-api_token | User's API token (returned on successful login). Else the session cookie is used.
+token | User's API token (returned on successful login). Else the session cookie is used.
 
 ### Explanation of extra data returned
 

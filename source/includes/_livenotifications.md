@@ -324,7 +324,7 @@ account_name | Business account (company) name.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "live_notifications_mark_as_read", "timestamp": "1412581522.1", "args": {"seq_no": 1234}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1412581522.1"}],

@@ -62,7 +62,7 @@ last_updated | A timestamp when the project was last updated (updated means, nam
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "project_add", "temp_id": "$1411654292.1", "timestamp": "1411654292.1", "args": {"name": "Project4"}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1411654292.1"}],
@@ -99,7 +99,7 @@ order | The order of the new project.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands=[{"type": "project_update", "timestamp": "1411654327.1", "args": {"id": 128501815, "indent": 2}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1411654327.1"}],
@@ -139,7 +139,7 @@ collapsed | `1` if the project should be collapsed, `0` if it should not be coll
 ```shell
 
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands=[{"type": "project_delete", "timestamp": "1411654352.1", "args": {"ids": [128501815]}}]'
 { ...
   "SyncStatus": [{"status": [{"128501815": "ok"}], "timestamp": "1411654352.1"}],
@@ -169,7 +169,7 @@ ids | List of the ids of the projects to delete.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands=[{"type": "project_archive", "timestamp": "1411654438.1", "args": {"id": 128501682}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1411654438.1"}],
@@ -198,7 +198,7 @@ id | The id of the project to archive.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands=[{"type": "project_unarchive", "timestamp": "1411654459.1", "args": {"id": 128501682}}]'
 { ...
   "SyncStatus": [{"status": "ok", "timestamp": "1411654459.1"}],
@@ -227,7 +227,7 @@ id | The id of the project to unarchive.
 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
-    -d api_token=0123456789abcdef0123456789abcdef01234567 \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands=[{"type": "project_update_orders_indents", "timestamp": "1411654466.1", "args": {"ids_to_orders_indents": {"128501470": [42, 1], "128501607": [43, 1]}}}]'
 { ...
   "SyncStatus": [
