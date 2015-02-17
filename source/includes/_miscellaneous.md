@@ -395,8 +395,8 @@ token | The user's token (received on login).
 Parameter | Description
 --------- | -----------
 js_date | If `js_date` is set to `1` dates will be formated as `new Date("Sun Apr 29 2007 23:59:59")`, otherwise they will be formatted as `"Sun Apr 29 2007 23:59:59"`.
-project_id | Filter the tasks by project_id.
-limit | The number of items to return (default is 30, while maximum is 50).
+project_id | Filter the tasks by `project_id`.
+limit | The number of items to return (default is `30`, while maximum is `50`).
 offset | Can be used for pagination, when more than the `limit` tasks are returned.
 from_date | Return items with a completed date same or older than `from_date` (formated as `2007-4-29T10:13`).
 to_date | Return items with a completed date same or newer than `to_date` (formated as `2007-4-29T10:13`).
