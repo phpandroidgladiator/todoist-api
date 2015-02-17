@@ -18,6 +18,7 @@ includes:
   - reminders
   - users
   - query
+  - miscellaneous
   - sharing
   - livenotifications
   - urlschemes

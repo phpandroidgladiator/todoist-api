@@ -67,3 +67,4 @@ delete_user | Deletes an existing account.
 get_redirect_link | Gets the redirect link.
 get_productivity_stats | Gets the productivity stats.
 update_notification_settings | Updates the notification settings.
+get_all_completed_tasks | Gets the user's completed tasks.
