@@ -400,3 +400,87 @@ limit | The number of items to return (default is `30`, while maximum is `50`).
 offset | Can be used for pagination, when more than the `limit` tasks are returned.
 from_date | Return items with a completed date same or older than `from_date` (formated as `2007-4-29T10:13`).
 to_date | Return items with a completed date same or newer than `to_date` (formated as `2007-4-29T10:13`).
+
+## Add item
+
+> An example of adding a task:
+
+```shell
+$ curl https://todoist.com/API/v6/add_item \
+    -d token=0123456789abcdef0123456789abcdef01234567
+    -d content=Task1
+{ "due_date": null,
+  "assigned_by_uid": 1855589,
+  "is_archived": 0,
+  "labels": [],
+  "sync_id": null,
+  "in_history": 0,
+  "has_notifications": 0,
+  "date_added": "Wed 18 Feb 2015 11:09:11 +0000",
+  "indent": 1,
+  "children": null,
+  "content": "Task1",
+  "is_deleted": 0,
+  "user_id": 1855589,
+  "due_date_utc": null,
+  "id": 33548400,
+  "priority": 4,
+  "item_order": 1,
+  "responsible_uid": null,
+  "project_id": 128501411,
+  "collapsed": 0,
+  "checked": 0,
+  "date_string": "" }
+```
+
+```python
+>>> import todoist
+>>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+>>> api.add_item("Task1")
+{ 'is_archived': 0,
+  'labels': [],
+  'sync_id': None,
+  'in_history': 0,
+  'checked': 0,
+  'id': 33548400,
+  'priority': 4,
+  'user_id': 1855589,
+  'date_added': 'Wed 18 Feb 2015 11:09:11 +0000',
+  'children': None,
+  'content': 'Task1',
+  'item_order': 1,
+  'project_id': 128501411,
+  'date_string': '',
+  'due_date': None,
+  'assigned_by_uid': 1855589,
+  'collapsed': 0,
+  'has_notifications': 0,
+  'indent': 1,
+  'is_deleted': 0,
+  'due_date_utc': None,
+  'responsible_uid': None }
+```
+
+Add a new task to a project.  Note, that this is provided as a helper method, a shortcut, to quickly add a task without going through the `Sync workflow` described in a previous section.
+
+### Required parameters
+
+Parameter | Description
+--------- | -----------
+token | The user's token (received on login).
+
+### Optional parameters
+
+Parameter | Description
+--------- | -----------
+project_id | The id of the project to add the task to (defaults to `Inbox` project).
+date_string | The date of the task, added in free form text, for example it can be `every day @ 10`. Look at our reference to see [which formats are supported](https://todoist.com/Help/timeInsert).
+priority | The priority of the task (a number between `1` and `4`, `4` for very urgent and `1` for natural).
+indent | The indent of the item (a number between `1` and `4`, where `1` is top-level).
+js_date | If `js_date` is set to `1` dates will be formated as `new Date("Sun Apr 29 2007 23:59:59")`, otherwise they will be formatted as `"Sun Apr 29 2007 23:59:59"`.
+item_order | The order of the task.
+children | The tasks child tasks (a list of task ids such as `[13134,232345]`)
+labels | The tasks labels (a list of label ids such as `[2324,2525]`)
+assigned_by_uid | The id of user who assigns current task. Makes sense for shared projects only. Accepts `0` or any user id from the list of project collaborators. If this value is unset or invalid, it will automatically be set up by your uid.
+responsible_uid | The id of user who is responsible for accomplishing the current task. Makes sense for shared projects only. Accepts `0` or any user id from the list of project collaborators. If this value is unset or invalid, it will automatically be set up by null.
+note | Add a note directly to the task, note is a string of the content.

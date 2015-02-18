@@ -56,15 +56,15 @@ are not related to the full model, but are nonetheless useful.
 
 Call | Description
 ---- | -----------
+login | Logins to the server using the user's password.
+login_with_google | Logins to the server using OAuth2.
 sync | Retrieves or sends data.
-query | Query after date, priority or labels.
-add_item | Adds a new item.
 upload_file | Uploads a file.
-login | Logins to the server using plain email/password.
-login_with_google | Logins to the server OAuth2.
+query | Query after date, priority or labels.
 register | Registers a new account.
 delete_user | Deletes an existing account.
 get_redirect_link | Gets the redirect link.
 get_productivity_stats | Gets the productivity stats.
 update_notification_settings | Updates the notification settings.
 get_all_completed_tasks | Gets the user's completed tasks.
+add_item | Adds a new item.
