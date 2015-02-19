@@ -399,7 +399,7 @@ project_id | Filter the tasks by `project_id`.
 limit | The number of items to return (default is `30`, while maximum is `50`).
 offset | Can be used for pagination, when more than the `limit` tasks are returned.
 from_date | Return items with a completed date same or older than `from_date` (formated as `2007-4-29T10:13`).
-to_date | Return items with a completed date same or newer than `to_date` (formated as `2007-4-29T10:13`).
+to_date | Return items with a completed date newer than `to_date` (formated as `2007-4-29T10:13`).
 
 ## Add item
 
