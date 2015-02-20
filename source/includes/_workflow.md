@@ -134,7 +134,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.get()
+>>> api.sync()
 { 'CollaboratorStates': [],
   'Collaborators': [],
   'DayOrders': {},
