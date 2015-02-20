@@ -98,7 +98,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> item = api.item_add('Task1', 128501470)
+>>> item = api.items.add('Task1', 128501470)
 >>> api.commit()
 ```
 
@@ -319,7 +319,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.item_uncomplete_update_meta(128501470, {33548400: [0, 0, 1]})
+>>> api.items.uncomplete_update_meta(128501470, {33548400: [0, 0, 1]})
 >>> api.commit()
 ```
 
@@ -348,7 +348,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.item_update_date_complete(33548400, '2014-10-30T23:59', 'every day', 1)
+>>> api.items.update_date_complete(33548400, '2014-10-30T23:59', 'every day', 1)
 >>> api.commit()
 ```
 
@@ -379,7 +379,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.item_update_orders_indents({33548400: [1, 1]})
+>>> api.items.update_orders_indents({33548400: [1, 1]})
 >>> api.commit()
 ```
 
@@ -407,7 +407,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.item_update_day_orders({33548400: 1})
+>>> api.items.update_day_orders({33548400: 1})
 >>> api.commit()
 ```
 

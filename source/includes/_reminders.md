@@ -61,7 +61,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> reminder = api.reminder_add(33511505, service='email', minute_offset=30)
+>>> reminder = api.reminders.add(33511505, service='email', minute_offset=30)
 >>> api.commit()
 ```
 
@@ -80,7 +80,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> reminder = api.reminder_add(33511505, service='email', due_date_utc='2014-10-15T11:00')
+>>> reminder = api.reminders.add(33511505, service='email', due_date_utc='2014-10-15T11:00')
 >>> api.commit()
 ```
 
@@ -99,7 +99,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> reminder = api.reminder_add(33511505, service='email', type='location', name='Aliados', loc_lat='41.148581', loc_long='-8.610945000000015', loc_trigger='on_enter', radius=100)
+>>> reminder = api.reminders.add(33511505, service='email', type='location', name='Aliados', loc_lat='41.148581', loc_long='-8.610945000000015', loc_trigger='on_enter', radius=100)
 >>> api.commit()
 ```
 

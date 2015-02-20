@@ -47,7 +47,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> label = api.label_register('Label1')
+>>> label = api.labels.register('Label1')
 >>> api.commit()
 ```
 

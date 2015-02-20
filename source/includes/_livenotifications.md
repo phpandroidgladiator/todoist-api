@@ -334,7 +334,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.live_notifications_mark_as_read(1234)
+>>> api.live_notifications.mark_as_read(1234)
 >>> api.commit()
 ```
 

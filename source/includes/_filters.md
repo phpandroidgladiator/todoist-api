@@ -54,7 +54,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> filter = api.filter_add('Filter1', 'no due date')
+>>> filter = api.filters.add('Filter1', 'no due date')
 >>> api.commit()
 ```
 
@@ -161,7 +161,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.filter_update_orders({9: 1, 10: 2})
+>>> api.filters.update_orders({9: 1, 10: 2})
 >>> api.commit()
 ```
 

@@ -98,7 +98,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> note = api.note_add(33548400, 'Note1')
+>>> note = api.notes.add(33548400, 'Note1')
 >>> api.commit()
 ```
 
@@ -134,7 +134,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> note = api.note_add(128501682, 'Note1')
+>>> note = api.notes.add(128501682, 'Note1')
 >>> api.commit()
 ```
 

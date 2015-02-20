@@ -73,7 +73,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> project = api.project_add('Project4')
+>>> project = api.projects.add('Project4')
 >>> api.commit()
 ```
 
@@ -242,7 +242,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.project_update_orders_indents({128501470: [42, 1], 128501607: [43, 1]})
+>>> api.projects.update_orders_indents({128501470: [42, 1], 128501607: [43, 1]})
 >>> api.commit()
 ```
 

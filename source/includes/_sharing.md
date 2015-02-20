@@ -82,7 +82,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.accept_invitation(1234, 'abcdefghijklmno')
+>>> api.invitations.accept(1234, 'abcdefghijklmno')
 >>> api.commit()
 ```
 
@@ -111,7 +111,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.reject_invitation(1234, 'abcdefghijklmno')
+>>> api.invitations.reject(1234, 'abcdefghijklmno')
 >>> api.commit()
 ```
 
@@ -140,7 +140,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.delete_invitation(128501470)
+>>> api.invitations.delete(128501470)
 >>> api.commit()
 ```
 
@@ -196,7 +196,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.biz_accept_invitation(1234, 'abcdefghijklmno')
+>>> api.biz_invitations.accept(1234, 'abcdefghijklmno')
 >>> api.commit()
 ```
 
@@ -222,7 +222,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.biz_reject_invitation(1234, 'abcdefghijklmno')
+>>> api.biz_invitations.reject(1234, 'abcdefghijklmno')
 >>> api.commit()
 ```
 
