@@ -309,12 +309,12 @@ notification_type | The notification type.
 service | The service type, which can be `email` or `push`.
 dont_notify | Should we notify on this service? Can be `1` or `0`.
 
-## Get all completed tasks
+## Get all completed items
 
 > An example of getting the user's completed tasks
 
 ```shell
-$ curl https://todoist.com/API/v6/get_all_completed_tasks \
+$ curl https://todoist.com/API/v6/get_all_completed_items \
     -d token=0123456789abcdef0123456789abcdef01234567
 {
   "items": [
@@ -350,7 +350,7 @@ $ curl https://todoist.com/API/v6/get_all_completed_tasks \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.get_all_completed_tasks()
+>>> api.get_all_completed_items()
 {
   'items': [
     { 'user_id': 1855589,
