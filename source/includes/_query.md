@@ -3,7 +3,15 @@
 > On success, an HTTP 200 OK with a JSON object with the tasks found is returned:
 
 ```shell
-     { "due_date": "Wed 08 Oct 2014 20:59:59 +0000",
+$ curl https://todoist.com/API/query \
+    -d token=0123456789abcdef0123456789abcdef01234567 \
+    -d queries='["tomorrow","p1"]'
+[
+  {
+    "query": "tomorrow",
+    "type": "date",
+    "data": [
+      { "due_date": "Wed 08 Oct 2014 20:59:59 +0000",
         "is_deleted": 0,
         "assigned_by_uid": 1855589,
         "is_archived": 0,
