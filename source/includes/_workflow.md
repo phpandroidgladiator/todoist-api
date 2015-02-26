@@ -8,6 +8,7 @@
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
     -d seq_no=0
+    -d resource_types='["all"]'
 {
   "seq_no_global": 2180537512,
   "Collaborators": [],
@@ -134,7 +135,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.sync()
+>>> api.sync(['all'])
 { 'CollaboratorStates': [],
   'Collaborators': [],
   'DayOrders': {},
@@ -272,7 +273,7 @@ Parameter | Description
 --------- | -----------
 day_orders_timestamp | The `sync` API requests return `DayOrdersTimestamp` that specifies when the day orders were last updated. If you omit `day_orders_timestamp` then none of then will be fetched. If you specify `day_orders_timestamp` then day orders will be returned if your timestamp is different from the servers. If you send `day_orders_timestamp` and the day orders have not been updated then the server won't return the `DayOrders` entry at all.
 include_notification_settings | Include notification settings (`SettingsNotifications`). This is needed on platforms that implement native notifications.
-resource_types | An optional parameter which is useful if you don't need a complete result, but want to have just a subset. It can be useful for speeding up the load of most important user's data (like the list of projects and tasks) and to get the rest of the data asynchronously later on. It should be a JSON-encoded list of strings. For example, `["projects", "labels", "filters"]`. Below is the list of recognizable values for strings: `projects` for the list of projects, `items` for list of tasks, `labels` for the list of labels, `day_orders` for the list of day orders, `filters` for the list of filters, `reminders` for the list of reminders,  `collaborators` for the list of collaborators, `notes` for the list of notes, `live_notifications` for the list of live notifications, `share_invitations` for the list of invitations, and `all` for all the above, in other words for everything.
+resource_types | An optional parameter which is useful if you don't need a complete result, but want to have just a subset. It can be useful for speeding up the load of most important user's data (like the list of projects and tasks) and to get the rest of the data asynchronously later on. It should be a JSON-encoded list of strings. For example, `["projects", "labels", "filters"]`. Below is the list of recognizable values for strings: `projects` for the list of projects, `items` for list of tasks, `labels` for the list of labels, `notes` for the list of notes, `filters` for the list of filters, `reminders` for the list of reminders, `user` for the user's details, `live_notifications` for the list of live notifications, `day_orders` for the list of day orders, `collaborators` for the list of collaborators, `share_invitations` for the list of invitations, and `all` for all the above, in other words for everything.
 
 ### Explanation of data returned
 
@@ -303,44 +304,14 @@ SettingsNotifications | The same data as the `getNotificationSettings` API call 
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
     -d commands='[{"type": "project_add", "temp_id": "$1411653993.1", "timestamp": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
-{ "seq_no_global": 2180537513,
-  "DayOrdersTimestamp": "1344642991.1",
+{
+  "seq_no_global": 2180537513,
   "UserId": 1855589,
   "seq_no": 2180537513,
   "SyncStatus": [
     {"status": "ok", "timestamp": "1411653993.1"}
   ],
   "TempIdMapping": {"$1411653993.1": 128501470},
-  "User": {
-    "start_page": "overdue, 7 days",
-    "join_date": "Wed 30 Apr 2014 13:24:38 +0000",
-    "is_premium": false,
-    "sort_order": 0,
-    "full_name": "Example User",
-    "has_push_reminders": false,
-    "timezone": "Europe\/Athens",
-    "id": 1855589,
-    "next_week": 1,
-    "completed_count": 20,
-    "tz_offset": ["+03:00", 3, 0, 1],
-    "email": "me@example.com",
-    "start_day": 1,
-    "is_dummy": 0,
-    "inbox_project": 128501411,
-    "time_format": 0,
-    "image_id": null,
-    "beta": 0,
-    "premium_until": null,
-    "business_account_id": null,
-    "mobile_number": null,
-    "mobile_host": null,
-    "date_format": 0,
-    "karma_trend": "-",
-    "token": "0123456789abcdef0123456789abcdef01234567",
-    "karma": 684.0,
-    "is_biz_admin": false,
-    "default_reminder": null
-  },
 }
 ```
 
@@ -348,41 +319,11 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
 >>> api.sync(commands=[{'type': 'project_add', 'temp_id': '$1411653993.1', 'timestamp': '1411653993.1', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
-{ 'DayOrdersTimestamp': '1344642991.1',
+{ 
   'SyncStatus': [
     {'status': 'ok', 'timestamp': '1411653993.1'}
   ],
   'TempIdMapping': {'$1411653993.1': 128501470},
-  'User': {
-    'beta': 0,
-    'business_account_id': None,
-    'completed_count': 20,
-    'date_format': 0,
-    'default_reminder': None,
-    'email': 'me@example.com',
-    'full_name': 'Example User',
-    'has_push_reminders': False,
-    'id': 1855589,
-    'image_id': None,
-    'inbox_project': 128501411,
-    'is_biz_admin': False,
-    'is_dummy': 0,
-    'is_premium': False,
-    'join_date': 'Wed 30 Apr 2014 13:24:38 +0000',
-    'karma': 684.0,
-    'karma_trend': '-',
-    'mobile_host': None,
-    'mobile_number': None,
-    'next_week': 1,
-    'premium_until': None,
-    'sort_order': 0,
-    'start_day': 1,
-    'start_page': 'overdue, 7 days',
-    'time_format': 0,
-    'timezone': 'Europe/Athens',
-    'token': '0123456789abcdef0123456789abcdef01234567',
-    'tz_offset': ['+03:00', 3, 0, 1]
-  },
   'UserId': 1855589,
   'seq_no': 2180537513L,
   'seq_no_global': 2180537513L,
