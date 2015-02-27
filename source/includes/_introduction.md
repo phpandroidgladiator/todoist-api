@@ -22,26 +22,6 @@ A [PyPI package](https://pypi.python.org/pypi/todoist-python) has been also prep
 
 There is more detailed documentation speficically for the Todoist Python API library, and this [API reference](http://todoist-python.readthedocs.org/en/latest/) documentation can be also read online.
 
-## JSON-P Callbacks
-
-> Script for solving cross-domain security policy:
-
-```js
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = 'https://api.todoist.com/API/...&callback=callbackFunction';
-document.getElementsByTagName('head')[0].appendChild(script);
-```
-
-> The response data will look like this (callbackFunction will be called):
-
-```js
-callbackFunction({ JSON data here });
-```
-
-The Todoist API supports [JSONP](http://en.wikipedia.org/wiki/JSONP) which allows you to get around the cross-domain policy and to request data from Todoist in the browser environment.
-
-
 ## Overview
 
 The API has been simplified (in version 6), and almost all interactions with
