@@ -207,6 +207,5 @@ queries | A JSON list of queries to search. [Examples of searches](https://todoi
 Argument | Description
 -------- | -----------
 as_count | If set to `1` then no data will be returned, instead the count of tasks matching will be returned.
-js_date | If `js_date` is set to `1` dates will be formated as `new Date("Sun Apr 29 2007 23:59:59")`, otherwise they will be formatted as `"Sun Apr 29 2007 23:59:59"`.
 
 

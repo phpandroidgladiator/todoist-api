@@ -394,7 +394,6 @@ token | The user's token (received on login).
 
 Parameter | Description
 --------- | -----------
-js_date | If `js_date` is set to `1` dates will be formated as `new Date("Sun Apr 29 2007 23:59:59")`, otherwise they will be formatted as `"Sun Apr 29 2007 23:59:59"`.
 project_id | Filter the tasks by `project_id`.
 limit | The number of items to return (default is `30`, while maximum is `50`).
 offset | Can be used for pagination, when more than the `limit` tasks are returned.
@@ -477,7 +476,6 @@ project_id | The id of the project to add the task to (defaults to `Inbox` proje
 date_string | The date of the task, added in free form text, for example it can be `every day @ 10`. Look at our reference to see [which formats are supported](https://todoist.com/Help/timeInsert).
 priority | The priority of the task (a number between `1` and `4`, `4` for very urgent and `1` for natural).
 indent | The indent of the item (a number between `1` and `4`, where `1` is top-level).
-js_date | If `js_date` is set to `1` dates will be formated as `new Date("Sun Apr 29 2007 23:59:59")`, otherwise they will be formatted as `"Sun Apr 29 2007 23:59:59"`.
 item_order | The order of the task.
 children | The tasks child tasks (a list of task ids such as `[13134,232345]`)
 labels | The tasks labels (a list of label ids such as `[2324,2525]`)
