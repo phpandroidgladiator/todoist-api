@@ -117,7 +117,6 @@ $ curl https://todoist.com/API/v6/sync -X POST \
       "inbox_project": true,
       "archived_date": null,
       "archived_timestamp": 0,
-      "cache_count": 0,
       "id": 1855589,
       "indent": 1,
       "name": "Inbox",
@@ -205,7 +204,6 @@ $ curl https://todoist.com/API/v6/sync -X POST \
   'Projects': [
     { 'archived_date': None,
        'archived_timestamp': 0,
-       'cache_count': 0,
        'collapsed': 0,
        'color': 7,
        'id': 128501411,

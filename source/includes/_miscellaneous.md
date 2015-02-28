@@ -334,7 +334,6 @@ $ curl https://todoist.com/API/v6/get_all_completed_items \
       "collapsed": 0,
       "archived_date": null,
       "indent": 1,
-      "cache_count": 0,
       "is_deleted": 0,
       "id": 128501470,
       "user_id": 1855589,
@@ -372,7 +371,6 @@ $ curl https://todoist.com/API/v6/get_all_completed_items \
         'archived_date': None,
         'item_order': 36,
         'is_archived': 0,
-        'cache_count': 0,
         'indent': 1,
         'archived_timestamp': 0,
         'id': 128501470 }
