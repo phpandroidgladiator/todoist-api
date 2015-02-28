@@ -330,8 +330,7 @@ $ curl https://todoist.com/API/v6/get_all_completed_items \
   ],
   "projects": {
     "128501470":
-    { "last_updated": "",
-      "color": 7,
+    { "color": 7,
       "collapsed": 0,
       "archived_date": null,
       "indent": 1,
@@ -364,8 +363,7 @@ $ curl https://todoist.com/API/v6/get_all_completed_items \
   ],
   'projects': {
     '128501470':
-      { 'last_updated': '',
-        'name': 'Inbox',
+      { 'name': 'Inbox',
         'user_id': 1855589,
         'color': 7,
         'is_deleted': 0,

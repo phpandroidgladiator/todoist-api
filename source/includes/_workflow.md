@@ -112,8 +112,7 @@ $ curl https://todoist.com/API/v6/sync -X POST \
   "WebStaticVersion": 305,
   "Reminders": [],
   "Projects": [
-    { "last_updated": "1344642991.1",
-      "color": 7,
+    { "color": 7,
       "collapsed": 0,
       "inbox_project": true,
       "archived_date": null,
@@ -215,7 +214,6 @@ $ curl https://todoist.com/API/v6/sync -X POST \
        'is_archived': 0,
        'is_deleted': 0,
        'item_order': 0,
-       'last_updated': '1344642991.1',
        'name': 'Inbox',
        'shared': False,
        'user_id': 1855589}

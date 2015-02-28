@@ -4,7 +4,6 @@
 
 ```shell
 {
-  "last_updated": "",
   "color": 1,
   "collapsed": 0,
   "archived_date": null,
@@ -24,7 +23,6 @@
 ```python
 {
   'shared': False,
-  'last_updated': '',
   'name': 'Project1',
   'user_id': 1855589,
   'color': 1,
@@ -54,7 +52,6 @@ color | The color of the project, an index is an array. For example `#bde876`, `
 indent | The indent of the item (a number between 1 and 4 where 1 is top-level).
 item_order | Project's order in the project list. Smaller number should be located in the top.
 collapsed | If set to 1 the project's sub projects are collapsed. Otherwise they aren't.
-last_updated | A timestamp when the project was last updated (updated means, name changed, task added, task completed etc.)
 
 ## Add a project
 
