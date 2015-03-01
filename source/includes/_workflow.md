@@ -337,6 +337,10 @@ Parameter | Description
 commands | A list of JSON object commands. These commands are specified later in the documentation.
 token | User's API token (returned on successful login). Else the session cookie is used.
 
+### Limits
+The maximal number of commands is 100 pr. request. This is done to prevent timeouts and other problems when dealing with big requests.
+
+
 ### Explanation of extra data returned
 
 When there are items to be synced to the server, some extra data are returned.
@@ -346,7 +350,7 @@ Data | Description
 TempIdMapping | A JSON list containing all the temporary ids mapped to real ids.
 SyncStatus | A JSON list containing the return value of each of the items that where synced.
 
-## Timestamps
+## UUIDs
 
 Each `uuid` should be unique, for example, it could be [uuid.uuid1()](https://docs.python.org/2/library/uuid.html) in Python. This is used for duplication protection, i.e. we want to ensure that same command isn't executed twice! This check works by keeping track client ids and uuids. By just supplying UUID's the system does these checks automatically and will ignore duplicated commands.
 
