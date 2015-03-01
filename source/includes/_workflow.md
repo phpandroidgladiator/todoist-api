@@ -299,13 +299,13 @@ SettingsNotifications | The same data as the `getNotificationSettings` API call 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "project_add", "temp_id": "$1411653993.1", "timestamp": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
+    -d commands='[{"type": "project_add", "temp_id": "$1411653993.1", "uuid": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
 {
   "seq_no_global": 2180537513,
   "UserId": 1855589,
   "seq_no": 2180537513,
   "SyncStatus": [
-    {"status": "ok", "timestamp": "1411653993.1"}
+    {"status": "ok", "uuid": "1411653993.1"}
   ],
   "TempIdMapping": {"$1411653993.1": 128501470},
 }
@@ -314,10 +314,10 @@ $ curl https://todoist.com/API/v6/sync -X POST \
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.sync(commands=[{'type': 'project_add', 'temp_id': '$1411653993.1', 'timestamp': '1411653993.1', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
+>>> api.sync(commands=[{'type': 'project_add', 'temp_id': '$1411653993.1', 'uuid': '1411653993.1', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
 { 
   'SyncStatus': [
-    {'status': 'ok', 'timestamp': '1411653993.1'}
+    {'status': 'ok', 'uuid': '1411653993.1'}
   ],
   'TempIdMapping': {'$1411653993.1': 128501470},
   'UserId': 1855589,
@@ -348,7 +348,7 @@ SyncStatus | A JSON list containing the return value of each of the items that w
 
 ## Timestamps
 
-Each `timestamp` should be based on the unix timestamp of when the command was created. This is used for duplication protection, i.e. we want to ensure that same command isn't executed twice! This check works by keeping track of command types, temporary ids and timestamps. By just supplying timestamps the system does these checks automatically and will ignore duplicated commands.
+Each `uuid` should be unique, for example, it could be [uuid.uuid1()](https://docs.python.org/2/library/uuid.html) in Python. This is used for duplication protection, i.e. we want to ensure that same command isn't executed twice! This check works by keeping track client ids and uuids. By just supplying UUID's the system does these checks automatically and will ignore duplicated commands.
 
 ## Temporary ids
 
@@ -364,7 +364,7 @@ Each `timestamp` should be based on the unix timestamp of when the command was c
       "indent": 1,
       "color": 1
     },
-    "timestamp": "1411654161.1"
+    "uuid": "1411654161.1"
   },
   {
     "type": "project_update",
@@ -372,7 +372,7 @@ Each `timestamp` should be based on the unix timestamp of when the command was c
       "id": "$1411654161.1",
       "color": 2
     },
-    "timestamp": "1411654193.1"
+    "uuid": "1411654193.1"
   }
 ]
 ```
@@ -417,7 +417,7 @@ In any case, a JSON object is always returned.  So if the request was succesful,
 
 ```json
 {
-  "SyncStatus": [{ "timestamp": "1411653990.1", "status": "ok"}]
+  "SyncStatus": [{ "uuid": "1411653990.1", "status": "ok"}]
 }
 ```
 
@@ -426,8 +426,8 @@ In any case, a JSON object is always returned.  So if the request was succesful,
 ```json
 {
   "SyncStatus": [
-    { "timestamp": "1411653991.1", "status": "ok"},
-    { "timestamp": "1411653991.2",
+    { "uuid": "1411653991.1", "status": "ok"},
+    { "uuid": "1411653991.2",
       "status": {"error": [15, "Invalid temporary id"]} },
   ]
 }
@@ -438,7 +438,7 @@ In any case, a JSON object is always returned.  So if the request was succesful,
 ```json
 {
   "SyncStatus": [
-    { "timestamp": "1411653992.2",
+    { "uuid": "1411653992.2",
       "status": [
         {"128501470": "ok"},
         {"128501607": {"error": [20, "Project not found"]}}
@@ -451,8 +451,8 @@ In any case, a JSON object is always returned.  So if the request was succesful,
 Also, specifically for the case of the `sync` request, where multiple requests can be sent with a single call by the client, there is a special object reserved for indicating the return value of each specific request, the `SyncStatus`.
 
 The `SyncStatus` is a list of the return values of each of the multiple
-requests.  Each return value in this list contains a `timestamp` field which
-matches the timestamp of each request, and a `status` field which is the actual
+requests.  Each return value in this list contains a `uuid` field which
+matches the uuid of each request, and a `status` field which is the actual
 return value of each request.
 
 If one or more of the multiple requests operate in multiple objects, then the `status` field is itself a list of return values one for each of the multiple objects, where each object is distinguished by its id.
