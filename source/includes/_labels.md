@@ -37,10 +37,10 @@ color | The color of the label.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "label_register", "temp_id": "$1412168307.1", "uuid": "1412168307.1", "args": {"name": "Label1"}}]'
+    -d commands='[{"type": "label_register", "temp_id": "f2f182ed-89fa-4bbb-8a42-ec6f7aa47fd0", "uuid": "ba204343-03a4-41ff-b964-95a102d12b35", "args": {"name": "Label1"}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412168307.1"}],
-  "TempIdMapping": {"$1412168307.1": 1234},
+  "SyncStatus": {"ba204343-03a4-41ff-b964-95a102d12b35": "ok"},
+  "TempIdMapping": {"f2f182ed-89fa-4bbb-8a42-ec6f7aa47fd0": 1234},
   ... }
 ```
 
@@ -72,9 +72,9 @@ color | The color of the label.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "label_update", "uuid": "1412168745.1", "args": {"id": 1234, "color": 3}}]'
+    -d commands='[{"type": "label_update", "uuid": "9c9a6e34-2382-4f43-a217-9ab017a83523", "args": {"id": 1234, "color": 3}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412168745.1"}],
+  "SyncStatus": {"9c9a6e34-2382-4f43-a217-9ab017a83523": "ok"},
   ... }
 ```
 
@@ -108,9 +108,9 @@ color | The color of the label.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "label_delete", "uuid": "1412169068.1", "args": {"id": 1234}}]'
+    -d commands='[{"type": "label_delete", "uuid": "aabaa5e0-b91b-439c-aa83-d1b35a5e9fb3", "args": {"id": 1234}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412169068.1"}],
+  "SyncStatus": {"aabaa5e0-b91b-439c-aa83-d1b35a5e9fb3": "ok"},
   ... }
 ```
 

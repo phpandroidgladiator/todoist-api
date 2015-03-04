@@ -88,10 +88,10 @@ If you upload an audio file, you may provide an extra attribute `file_duration` 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "note_add", "temp_id": "$1412325057.1", "uuid": "1412325057.1", "args": {"item_id": 33548400, "content": "Note1"}}]'
+    -d commands='[{"type": "note_add", "temp_id": "59fe4461-287b-4b00-bacc-ee771137a732", "uuid": "e1005f08-acd6-4172-bab1-4338f8616e49", "args": {"item_id": 33548400, "content": "Note1"}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412325057.1"}],
-  "TempIdMapping": {"$1412325057.1": 1234},
+  "SyncStatus": {"e1005f08-acd6-4172-bab1-4338f8616e49": "ok"},
+  "TempIdMapping": {"59fe4461-287b-4b00-bacc-ee771137a732": 1234},
   ... }
 ```
 
@@ -124,10 +124,10 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "note_add", "temp_id": "$1412325057.1", "uuid": "1412325057.1", "args": {"project_id": 128501682, "content": "Note1"}}]'
+    -d commands='[{"type": "note_add", "temp_id": "95653826-fc43-47b3-86c8-c11f90fe7aba", "uuid": "f5d12bd9-d14d-4529-b223-9cd7d593119e", "args": {"project_id": 128501682, "content": "Note1"}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412325057.1"}],
-  "TempIdMapping": {"$1412325057.1": 1234},
+  "SyncStatus": {"f5d12bd9-d14d-4529-b223-9cd7d593119e": "ok"},
+  "TempIdMapping": {"95653826-fc43-47b3-86c8-c11f90fe7aba": 1234},
   ... }
 ```
 
@@ -160,9 +160,9 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "note_update", "uuid": "1412325418.1", "args": {"id": 1234, "content": "UpdatedNote1"}}]'
+    -d commands='[{"type": "note_update", "uuid": "8a38f9c5-2cd0-4da5-87c1-26d617b354e0", "args": {"id": 1234, "content": "UpdatedNote1"}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412325418.1"}],
+  "SyncStatus": {"8a38f9c5-2cd0-4da5-87c1-26d617b354e0": "ok"},
   ... }
 ```
 
@@ -196,9 +196,9 @@ file_attachment | A file attached to the note.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "note_delete", "uuid": "1412325478.1", "args": {"id": 1234, "item_id": 33548400}}]'
+    -d commands='[{"type": "note_delete", "uuid": "8d666fda-73c3-4677-8b04-5d223632c24f", "args": {"id": 1234, "item_id": 33548400}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412325478.1"}],
+  "SyncStatus": {"8d666fda-73c3-4677-8b04-5d223632c24f": "ok"},
   ... }
 ```
 

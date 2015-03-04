@@ -87,10 +87,10 @@ responsible_uid | The id of user who is responsible for accomplishing the curren
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_add", "temp_id": "$1411732480.1", "uuid": "1411732480.1", "args": {"content": "Task1", "project_id": 128501470}}]'
+    -d commands='[{"type": "item_add", "temp_id": "43f7ed23-a038-46b5-b2c9-4abda9097ffa", "uuid": "997d4b43-55f1-48a9-9e66-de5785dfd69b", "args": {"content": "Task1", "project_id": 128501470}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1411732480.1"}],
-  "TempIdMapping": {"$1411732480.1": 33548400},
+  "SyncStatus": {"997d4b43-55f1-48a9-9e66-de5785dfd69b": "ok"},
+  "TempIdMapping": {"43f7ed23-a038-46b5-b2c9-4abda9097ffa": 33548400},
   ... }
 ```
 
@@ -133,9 +133,9 @@ note | Add a note directly to the task, note is a string of the content.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_update", "uuid": "1411984521.1", "args": {"id": 33548400, "priority": 2}}]'
+    -d commands='[{"type": "item_update", "uuid": "318d16a7-0c88-46e0-9eb5-cde6c72477c8", "args": {"id": 33548400, "priority": 2}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1411984521.1"}],
+  "SyncStatus": {"318d16a7-0c88-46e0-9eb5-cde6c72477c8": "ok"},
   ... }
 ```
 
@@ -176,9 +176,9 @@ responsible_uid | The id of user who is responsible for accomplishing the curren
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_delete", "uuid": "1411984533.1", "args": {"ids": [33548400]}}]'
+    -d commands='[{"type": "item_delete", "uuid": "f8539c77-7fd7-4846-afad-3b201f0be8a5", "args": {"ids": [33548400]}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1411984533.1"}],
+  "SyncStatus": {"f8539c77-7fd7-4846-afad-3b201f0be8a5": {"33548400": "ok"}},
   ... }
 ```
 
@@ -205,9 +205,9 @@ ids | List of the ids of the items to delete.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_move", "uuid": "1411997433.1", "args": {"project_items": {"128501470": [33548400]}, "to_project": 128501607}}]'
+    -d commands='[{"type": "item_move", "uuid": "818f108a-36d3-423d-857f-62837c245f3b", "args": {"project_items": {"128501470": [33548400]}, "to_project": 128501607}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1411997433.1"}],
+  "SyncStatus": {"818f108a-36d3-423d-857f-62837c245f3b": {"33548400": "ok"}},
   ... }
 
 ```
@@ -235,9 +235,9 @@ to_project | A project_id that the items should be moved to. Could be `1245`.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_complete", "uuid": "1412001010.1", "args": {"project_id": 128501470, "ids": [33548400]}}]'
+    -d commands='[{"type": "item_complete", "uuid": "a74bfb5c-5f1d-4d14-baea-b7415446a871", "args": {"project_id": 128501470, "ids": [33548400]}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1412001010.1"}],
+  "SyncStatus": {"a74bfb5c-5f1d-4d14-baea-b7415446a871": {"33548400": "ok"}},
   ... }
 ```
 
@@ -271,9 +271,9 @@ in_history | If these tasks should be moved to history, default is `1`. Setting 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_uncomplete", "uuid": "1412001918.1", "args": {"project_id": 128501470, "ids": [33548400]}}]'
+    -d commands='[{"type": "item_uncomplete", "uuid": "710a60e1-174a-4313-bb9f-4df01e0349fd", "args": {"project_id": 128501470, "ids": [33548400]}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1412001918.1"}],
+  "SyncStatus": {"710a60e1-174a-4313-bb9f-4df01e0349fd": {"33548400": "ok"}},
   ... }
 ```
 
@@ -307,9 +307,9 @@ update_item_orders | If this is set to `0` the item orders should not be updated
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_uncomplete_update_meta", "uuid": "1412061611.1", "args": {"project_id": 128501470, "ids_to_metas": {"33548400": [0, 0, 1]}}}]'
+    -d commands='[{"type": "item_uncomplete_update_meta", "uuid": "84e6c718-bd1a-406b-be56-46e613c1ce1c", "args": {"project_id": 128501470, "ids_to_metas": {"33548400": [0, 0, 1]}}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1412061611.1"}],
+  "SyncStatus": {"84e6c718-bd1a-406b-be56-46e613c1ce1c": {"33548400": "ok"}},
   ... }
 ```
 
@@ -336,9 +336,9 @@ ids_to_metas | A dictionary, where item id is the key, and its value is a list o
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_update_date_complete", "uuid": "1412089326.1", "args": {"id": 33548400, "new_data_utc": "2014-10-30T23:59", "date_string": "every day", "is_forward": 1}}]'
+    -d commands='[{"type": "item_update_date_complete", "uuid": "c5888360-96b1-46be-aaac-b49b1135feab", "args": {"id": 33548400, "new_data_utc": "2014-10-30T23:59", "date_string": "every day", "is_forward": 1}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412089326.1"}],
+  "SyncStatus": {"c5888360-96b1-46be-aaac-b49b1135feab": "ok"},
   ... }
 ```
 
@@ -367,9 +367,9 @@ is_forward | Indicates if it's a complete `1` or uncomplete `0`.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_update_orders_indents", "uuid": "1412089328.1", "args": {"ids_to_orders_indents": {"33548400": [1, 1]}}}]'
+    -d commands='[{"type": "item_update_orders_indents", "uuid": "a2bf0c06-f834-4442-99ab-b86fdfc66ed5", "args": {"ids_to_orders_indents": {"33548400": [1, 1]}}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1412089328.1"}],
+  "SyncStatus": {"a2bf0c06-f834-4442-99ab-b86fdfc66ed5": {"33548400": "ok"}},
   ... }
 ```
 
@@ -395,9 +395,9 @@ ids_to_orders_indents | A dictionary, where an item id is the key, and a list wi
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_update_day_orders", "uuid": "1412089509.1", "args": {"ids_to_orders": {"33548400": 1}}}]'
+    -d commands='[{"type": "item_update_day_orders", "uuid": "dbeb40fc-905f-4d8a-8bae-547d3bbd6e91", "args": {"ids_to_orders": {"33548400": 1}}}]'
 { ...
-  "SyncStatus": [{"status": [{"33548400": "ok"}], "uuid": "1412089509.1"}],
+  "SyncStatus": {"dbeb40fc-905f-4d8a-8bae-547d3bbd6e91": {"33548400": "ok"}},
   ... }
 ```
 

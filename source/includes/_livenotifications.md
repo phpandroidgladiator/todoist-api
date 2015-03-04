@@ -325,9 +325,9 @@ account_name | Business account (company) name.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "live_notifications_mark_as_read", "uuid": "1412581522.1", "args": {"seq_no": 1234}}]'
+    -d commands='[{"type": "live_notifications_mark_as_read", "uuid": "588b9ccf-29c0-4837-8bbc-fc858c0c6df8", "args": {"seq_no": 1234}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412581522.1"}],
+  "SyncStatus": {"588b9ccf-29c0-4837-8bbc-fc858c0c6df8": "ok"},
   ... }
 ```
 

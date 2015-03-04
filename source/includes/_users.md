@@ -234,7 +234,7 @@ in_background | Default is `1`. Set it to `0` if you want the user deleted insta
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "user_update", "uuid": "1411653994.1", "args": {"time_format": 0}}]'
+    -d commands='[{"type": "user_update", "uuid": "52f83009-7e27-4b9f-9943-1c5e3d1e6889", "args": {"time_format": 0}}]'
 ```
 
 ```python

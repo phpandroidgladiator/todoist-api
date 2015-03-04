@@ -43,10 +43,10 @@ query | The query to search for. [Examples of searches](https://todoist.com/Help
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "filter_add", "temp_id": "$1412333089.1", "uuid": "1412333089.1", "args": {"name": "Filter1", "query": "no due date"}}]'
+    -d commands='[{"type": "filter_add", "temp_id": "9204ca9f-e91c-436b-b408-ea02b3972686", "uuid": "0b8690b8-59e6-4d5b-9c08-6b4f1e8e0eb8", "args": {"name": "Filter1", "query": "no due date"}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412333089.1"}],
-  "TempIdMapping": {"$1412333089.1": 9},
+  "SyncStatus": {"0b8690b8-59e6-4d5b-9c08-6b4f1e8e0eb8": "ok"},
+  "TempIdMapping": {"9204ca9f-e91c-436b-b408-ea02b3972686": 9},
   ... }
 
 ```
@@ -81,9 +81,9 @@ color | The color of the filter.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "filter_update", "uuid": "1412334986.1", "args": {"id": 9, "query": "tomorrow"}}]'
+    -d commands='[{"type": "filter_update", "uuid": "a68b588a-44f7-434c-b3c5-a699949f755c", "args": {"id": 9, "query": "tomorrow"}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412334986.1"}],
+  "SyncStatus": {"a68b588a-44f7-434c-b3c5-a699949f755c": "ok"},
   ... }
 ```
 
@@ -118,9 +118,9 @@ color | The color of the filter.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "filter_delete", "uuid": "1412336184.1", "args": {"id": 9}}]'
+    -d commands='[{"type": "filter_delete", "uuid": "b8186025-66d5-4eae-b0dd-befa541abbed", "args": {"id": 9}}]'
 { ...
-  "SyncStatus": [{"status": "ok", "uuid": "1412336184.1"}],
+  "SyncStatus": {"b8186025-66d5-4eae-b0dd-befa541abbed": "ok"},
   ... }
 ```
 
@@ -147,14 +147,14 @@ id | The id of the filter.
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands=[{"type": "filter_update_orders", "uuid": "1412336529.1", "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
+    -d commands=[{"type": "filter_update_orders", "uuid": "517560cc-f165-4ff6-947b-3adda8aef744", "args": {"id_order_mapping": {"9":  1, "10": 2}}}]'
 { ...
-  "SyncStatus": [
-    { "status":
-      [ {"9": "ok"},
-        {"10": "ok"} ],
-      "uuid": "1412336529.1" },
-  ],
+  "SyncStatus": {
+    "517560cc-f165-4ff6-947b-3adda8aef744": {
+      "9": "ok",
+      "10": "ok"
+    }
+  },
   ... }
 ```
 

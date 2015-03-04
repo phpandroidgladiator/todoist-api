@@ -299,27 +299,23 @@ SettingsNotifications | The same data as the `getNotificationSettings` API call 
 ```shell
 $ curl https://todoist.com/API/v6/sync -X POST \
     -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "project_add", "temp_id": "$1411653993.1", "uuid": "1411653993.1", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
+    -d commands='[{"type": "project_add", "temp_id": "381e601f-0ef3-4ed6-bf95-58f896d1a314", "uuid": "ed1ce597-e4c7-4a88-ba48-e048d827c067", "args": {"name": "Project1", "item_order": 1, "indent": 1, "color": 1}}]'
 {
   "seq_no_global": 2180537513,
   "UserId": 1855589,
   "seq_no": 2180537513,
-  "SyncStatus": [
-    {"status": "ok", "uuid": "1411653993.1"}
-  ],
-  "TempIdMapping": {"$1411653993.1": 128501470},
+  "SyncStatus": {"ed1ce597-e4c7-4a88-ba48-e048d827c067": "ok"},
+  "TempIdMapping": {"381e601f-0ef3-4ed6-bf95-58f896d1a314": 128501470},
 }
 ```
 
 ```python
 >>> import todoist
 >>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.sync(commands=[{'type': 'project_add', 'temp_id': '$1411653993.1', 'uuid': '1411653993.1', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
+>>> api.sync(commands=[{'type': 'project_add', 'temp_id': '381e601f-0ef3-4ed6-bf95-58f896d1a314', 'uuid': 'ed1ce597-e4c7-4a88-ba48-e048d827c067', 'args': {'name': 'Project1', 'item_order': 1, 'indent': 1, 'color': 1}}]
 { 
-  'SyncStatus': [
-    {'status': 'ok', 'uuid': '1411653993.1'}
-  ],
-  'TempIdMapping': {'$1411653993.1': 128501470},
+  'SyncStatus': {'ed1ce597-e4c7-4a88-ba48-e048d827c067': 'ok'},
+  'TempIdMapping': {'381e601f-0ef3-4ed6-bf95-58f896d1a314': 128501470},
   'UserId': 1855589,
   'seq_no': 2180537513L,
   'seq_no_global': 2180537513L,
@@ -337,9 +333,14 @@ Parameter | Description
 commands | A list of JSON object commands. These commands are specified later in the documentation.
 token | User's API token (returned on successful login). Else the session cookie is used.
 
-### Limits
-The maximal number of commands is 100 pr. request. This is done to prevent timeouts and other problems when dealing with big requests.
+### Commands parameters
 
+Parameter | Description
+--------- | -----------
+type | The type of the command sent.
+args | The arguments of this specific command.
+uuid | A universal unique identifier (UUID) that is used for duplication protection, ie. to ensure that the same command isn't executed twice.
+temp_id | Only for commands creating a new object, a unique temporary id.
 
 ### Explanation of extra data returned
 
@@ -350,9 +351,9 @@ Data | Description
 TempIdMapping | A JSON list containing all the temporary ids mapped to real ids.
 SyncStatus | A JSON list containing the return value of each of the items that where synced.
 
-## UUIDs
+### Limits
 
-Each `uuid` should be unique, for example, it could be [uuid.uuid1()](https://docs.python.org/2/library/uuid.html) in Python. This is used for duplication protection, i.e. we want to ensure that same command isn't executed twice! This check works by keeping track client ids and uuids. By just supplying UUID's the system does these checks automatically and will ignore duplicated commands.
+The maximal number of commands is 100 per request. This is done to prevent timeouts and other problems when dealing with big requests.
 
 ## Temporary ids
 
@@ -361,22 +362,22 @@ Each `uuid` should be unique, for example, it could be [uuid.uuid1()](https://do
 ```json
 [
   { "type": "project_add",
-    "temp_id": "$1411654161.1",
+    "temp_id": "c7beb07f-b226-4eb1-bf63-30d782b07b1a",
     "args": {
       "name": "Project3",
       "item_order": 1,
       "indent": 1,
       "color": 1
     },
-    "uuid": "1411654161.1"
+    "uuid": "ac417051-1cdc-4dc3-b4f8-14526d5bfd16"
   },
   {
     "type": "project_update",
     "args": {
-      "id": "$1411654161.1",
+      "id": "c7beb07f-b226-4eb1-bf63-30d782b07b1a",
       "color": 2
     },
-    "uuid": "1411654193.1"
+    "uuid": "849fff4e-8551-4abb-bd2a-838d092775d7"
   }
 ]
 ```
@@ -384,10 +385,10 @@ Each `uuid` should be unique, for example, it could be [uuid.uuid1()](https://do
 >  You can see that the project_add command has a temp_id property, which specifies which temporary id this new project has. The project_update command later references this temporary id. The API will automatically resolve these ids. Additionally `sync` will return the real id in the result. Remember to update your local model with these real ids e.g.:
 
 ```json
-{"$1411654161.1": 128501682}
+{"c7beb07f-b226-4eb1-bf63-30d782b07b1a": 128501682}
 ```
 
-Your application will use temporary ids and the Sync API has special support for them. We suggest that you use unix timestamps to generate these ids to give them uniqueness (maybe also prefixing them with a special number).
+Your application will use temporary ids and the Sync API has special support for them.  We suggest that you use UUIDs to generate these ids to give them uniqueness.
 
 While the system remembers temporary ids and their mappings to real ids, it's important to use real ids when they are available to you (typically after a sync). This is important since the API only remembers the last 500 temporary ids for each user!
 
@@ -412,16 +413,16 @@ Status code | Description
 > An example of an error return value:
 
 ```json
-{ "error": [18, "Required argument is missing: name"]}
+{"error_code": 18, "error": "Required argument is missing: name"}
 ```
 
-In any case, a JSON object is always returned.  So if the request was succesful, a JSON object with the relevant to the request data is returned or if there is no data to return a simple `"ok"`, while if the request failed, a JSON object of the format `{"error":[error_code, error_string]}` is returned (where `error_code` is a number, and `error_string` a description).
+In any case, a JSON object is always returned.  So if the request was succesful, a JSON object with the relevant to the request data is returned or if there is no data to return a simple `"ok"`, while if the request failed, a JSON object of the format `{"error_code": error_code, "error": error_string}` is returned (where `error_code` is a number, and `error_string` a description).
 
 > An example of a single request sync return value:
 
 ```json
 {
-  "SyncStatus": [{ "uuid": "1411653990.1", "status": "ok"}]
+  "SyncStatus": {"863aca2c-65b4-480a-90ae-af160129abbd": "ok"}
 }
 ```
 
@@ -429,11 +430,10 @@ In any case, a JSON object is always returned.  So if the request was succesful,
 
 ```json
 {
-  "SyncStatus": [
-    { "uuid": "1411653991.1", "status": "ok"},
-    { "uuid": "1411653991.2",
-      "status": {"error": [15, "Invalid temporary id"]} },
-  ]
+  "SyncStatus": {
+    "32eaa699-e9d7-47ed-91ea-e58d475791f1": "ok",
+    "bec5b356-3cc1-462a-9887-fe145e3e1ebf": {"error_code": 15, "error": "Invalid temporary id"}
+  }
 }
 ```
 
@@ -441,22 +441,17 @@ In any case, a JSON object is always returned.  So if the request was succesful,
 
 ```json
 {
-  "SyncStatus": [
-    { "uuid": "1411653992.2",
-      "status": [
-        {"128501470": "ok"},
-        {"128501607": {"error": [20, "Project not found"]}}
-      ]
+  "SyncStatus": {
+    "66386321-fb87-4f95-9dfe-7bf5c3823e85" : {
+        "128501470": "ok",
+        "128501607": {"error_code": 20, "error": "Project not found"}
     }
-  ]
+  }
 }
 ```
 
 Also, specifically for the case of the `sync` request, where multiple requests can be sent with a single call by the client, there is a special object reserved for indicating the return value of each specific request, the `SyncStatus`.
 
-The `SyncStatus` is a list of the return values of each of the multiple
-requests.  Each return value in this list contains a `uuid` field which
-matches the uuid of each request, and a `status` field which is the actual
-return value of each request.
+The `SyncStatus` is a dictionary of the return values of each of the multiple requests.  Each key/value pair in this dictionary is the `uuid` field which matches the UUID of each request, and actual return value of each request.
 
-If one or more of the multiple requests operate in multiple objects, then the `status` field is itself a list of return values one for each of the multiple objects, where each object is distinguished by its id.
+If one or more of the multiple requests operate in multiple objects, then the value part is itself a dictionary of return values one for each of the multiple objects, where each object is distinguished by its id.
