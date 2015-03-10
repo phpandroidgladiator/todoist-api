@@ -85,7 +85,7 @@ Argument | Description
 -------- | -----------
 color | The color of the new project.
 indent | The indent of the item (a number between `1` and `4`, where `1` is top-level).
-order | The order of the new project.
+item_order | The order of the new project.
 
 ## Update a project
 
@@ -123,7 +123,7 @@ Argument | Description
 name | New name of the project.
 color | New color of the project.
 indent | The indent of the item (a number between `1` and `4`, where `1` is top-level).
-order | The order of the project.
+item_order | The order of the project.
 collapsed | `1` if the project should be collapsed, `0` if it should not be collapsed.
 
 ## Delete projects
