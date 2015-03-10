@@ -299,7 +299,7 @@ ids | A JSON list of ids to uncomplete.
 Argument | Description
 -------- | -----------
 update_item_orders | If this is set to `0` the item orders should not be updated, while by default this is set `1` and they are updated.
-restore_state | A dictionary, where item id is the key, and its value is a list of three elements, whether the item is in history, whether it is checked, its order and indent: `item_id: [in_history, checked, item_order, indent]`
+restore_state | A dictionary, where item id is the key, and its value is a list of four elements, whether the item is in history, whether it is checked, its order and indent: `item_id: [in_history, checked, item_order, indent]`
 
 
 ## Complete a recurring task
