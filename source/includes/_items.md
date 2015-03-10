@@ -299,35 +299,8 @@ ids | A JSON list of ids to uncomplete.
 Argument | Description
 -------- | -----------
 update_item_orders | If this is set to `0` the item orders should not be updated, while by default this is set `1` and they are updated.
+restore_state | A dictionary, where item id is the key, and its value is a list of three elements, whether the item is in history, whether it is checked, its order and indent: `item_id: [in_history, checked, item_order, indent]`
 
-## Restore multiple metadata
-
-> An example of restoring metadata about uncompleted items:
-
-```shell
-$ curl https://todoist.com/API/v6/sync -X POST \
-    -d token=0123456789abcdef0123456789abcdef01234567 \
-    -d commands='[{"type": "item_uncomplete_update_meta", "uuid": "84e6c718-bd1a-406b-be56-46e613c1ce1c", "args": {"project_id": 128501470, "ids_to_metas": {"33548400": [0, 0, 1]}}}]'
-{ ...
-  "SyncStatus": {"84e6c718-bd1a-406b-be56-46e613c1ce1c": {"33548400": "ok"}},
-  ... }
-```
-
-```python
->>> import todoist
->>> api = todoist.TodoistAPI('0123456789abcdef0123456789abcdef01234567')
->>> api.items.uncomplete_update_meta(128501470, {33548400: [0, 0, 1]})
->>> api.commit()
-```
-
-Restore metadata about uncompleted items.
-
-### Required arguments
-
-Argument | Description
--------- | -----------
-project_id | The id of the project to which the items belong to.
-ids_to_metas | A dictionary, where item id is the key, and its value is a list of three elements, whether the item is in history, whether it is checked, and its order: `item_id: [in_history, checked, item_order]`
 
 ## Complete a recurring task
 
